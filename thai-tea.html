@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Tea - RIS Kitchen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar Konsisten -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <a href="index.html"><img src="assets/Ris Kitchen_ Logo.png" alt="RIS Kitchen" class="nav-logo"></a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Kembali ke Home</a>
+                <a href="https://wa.me/6285711544265" target="_blank" class="btn neo-btn-small bg-brand-blue text-white">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="product-detail-section">
+        <div class="product-slider-container">
+            <div class="product-slider-wrapper" id="product-slider-wrapper">
+                <img src="assets/Thai Tea.jpg" alt="Thai Tea">
+                <img src="assets/Thai Tea2.jpg" alt="Thai Tea 2">
+            </div>
+            <button class="slider-btn prev" onclick="changeProductSlide(-1)">❮</button>
+            <button class="slider-btn next" onclick="changeProductSlide(1)">❯</button>
+        </div>
+
+        <div class="product-info reveal active">
+            <div class="badge bg-orange">BEST TEA SERIES</div>
+            <h1>Thai Tea Original</h1>
+            <p class="price bg-yellow neo-box-small">IDR 15,000.00</p>
+            <p class="description">
+                Rasakan kesegaran otentik khas Thailand di setiap tegukannya. Dibuat dari daun teh pilihan dengan paduan susu yang creamy, manisnya pas, dan tekstur yang sangat smooth. Cocok banget buat nemenin kerja, nugas, atau bersantai di cuaca panas. Shake before drink!
+            </p>
+            <button onclick="orderWhatsApp('Thai Tea', '15,000.00')" class="btn neo-btn bg-brand-blue text-white" style="width: 100%; font-size: 1.5rem; padding: 15px;">ORDER SEKARANG</button>
+        </div>
+    </section>
+
+    <!-- Footer Konsisten -->
+    <footer class="footer bg-cream" id="contact">
+        <div class="footer-container reveal">
+            <div class="footer-brand-box neo-box bg-white footer-logo-container">
+                <img src="assets/Ris Kitchen_ Logo.png" alt="RIS Kitchen Logo" class="footer-logo-full">
+            </div>
+            <div class="footer-links-box neo-box bg-yellow">
+                <h3>Quick Links</h3>
+                <a href="index.html#home">Home Page</a>
+                <a href="index.html#menu">Our Menu</a>
+                <a href="index.html#about">Why Us</a>
+            </div>
+            <div class="footer-contact-box neo-box bg-brand-blue text-white">
+                <h3 style="color: var(--white);">Let's Get in Touch</h3>
+                <a href="https://instagram.com/riskitchen99" target="_blank" class="footer-badge bg-white text-black">📸 IG: @riskitchen99</a>
+                <a href="https://wa.me/6285711544265" target="_blank" class="footer-badge bg-green text-black">💬 WA: +62 857-1154-4265</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 RIS Kitchen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
