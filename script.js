@@ -15,7 +15,7 @@ const products = [
         price: "Rp 13.000",
         priceNumber: "13,000",
         colorClass: "bg-yellow",
-        image: "assets/Cincau Gula Aren.webp",
+        images: ["assets/Cincau Gula Aren.webp", "assets/Cincau Gula Aren2.webp"],
         description: "Perpaduan cincau yang lembut dengan manisnya gula aren.",
         link: "cincau-gula-aren.html"
     },
@@ -26,7 +26,7 @@ const products = [
         price: "Rp 15.000",
         priceNumber: "15,000",
         colorClass: "bg-orange",
-        image: "assets/Thai Tea.webp",
+        images: ["assets/Thai Tea.webp", "assets/Thai Tea2.webp"],
         description: "Thai tea creamy dengan rasa teh yang khas dan menyegarkan.",
         link: "thai-tea.html"
     },
@@ -37,7 +37,7 @@ const products = [
         price: "Rp 15.000",
         priceNumber: "15,000",
         colorClass: "bg-green",
-        image: "assets/Green Tea.webp",
+        images: ["assets/Green Tea.webp", "assets/Green Tea 2.webp"],
         description: "Green tea ringan dan fresh untuk menemani hari kamu.",
         link: "green-tea.html"
     },
@@ -54,7 +54,7 @@ const products = [
          * Untuk produk yang belum memiliki foto khusus,
          * gunakan visual yang sudah tersedia di project.
          */
-        image: "assets/3 Menu.webp",
+        images: ["assets/3 Menu.webp", "assets/3 Menu 2.webp"],
 
         description: "Perpaduan segarnya semangka dan nanas dalam cold pressed juice.",
         link: "cold-pressed-semangka-nanas.html"
@@ -70,7 +70,7 @@ const products = [
         /*
          * Mempertahankan aset yang sudah ada.
          */
-        image: "assets/3 Menu 2.webp",
+        images: ["assets/3 Menu 2.webp", "assets/3 Menu.webp"],
 
         description: "Perpaduan pear dan nanas yang ringan, fresh, dan menyegarkan.",
         link: "cold-pressed-pear-nanas.html"
@@ -86,7 +86,7 @@ const products = [
         /*
          * Mempertahankan aset yang sudah ada.
          */
-        image: "assets/Green Tea.webp",
+        images: ["assets/Green Tea.webp", "assets/Green Tea 2.webp"],
 
         description: "Kesegaran kelapa dengan aroma pandan yang lembut.",
         link: "kelapa-pandan.html"
@@ -142,15 +142,24 @@ function renderProducts() {
                 aria-label="Lihat detail ${product.name}"
             >
 
-                <img
-                    src="${product.image}"
-                    alt="${product.name} RIS Kitchen"
-                    loading="lazy"
+                <div
+                    class="product-card-carousel"
+                    data-product-card-carousel
+                    aria-label="Galeri ${product.name}"
                 >
+                    <div class="product-card-carousel-track">
+                        ${product.images.map((image, index) => `
+                            <img
+                                src="${image}"
+                                alt="${product.name} RIS Kitchen ${index + 1}"
+                                loading="lazy"
+                                class="${index === 0 ? "is-active" : ""}"
+                            >
+                        `).join("")}
+                    </div>
 
-                <span class="product-card-number">
-                    ${String(product.id).padStart(2, "0")}
-                </span>
+                    <span class="product-card-dots" aria-hidden="true"></span>
+                </div>
 
             </a>
 
@@ -192,7 +201,159 @@ function renderProducts() {
 
 
 /* =========================================================
-   4. MOBILE MENU
+   4. REUSABLE CAROUSEL
+========================================================= */
+
+function initCarousel(root, options = {}) {
+    const track = root.querySelector(
+        ".hero-carousel-track, .product-carousel-track"
+    );
+
+    const slides = root.querySelectorAll(
+        ".hero-carousel-slide, .product-carousel-slide"
+    );
+
+    if (!track || slides.length < 2) {
+        return;
+    }
+
+    const prevButton = root.querySelector("[data-carousel-prev]");
+    const nextButton = root.querySelector("[data-carousel-next]");
+    const dotsContainer = root.querySelector("[data-carousel-dots]");
+
+    let currentIndex = 0;
+    let timer = null;
+
+    const render = (index, animate = true) => {
+        currentIndex = (index + slides.length) % slides.length;
+
+        if (!animate) {
+            track.classList.add("no-transition");
+        }
+
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        slides.forEach((slide, slideIndex) => {
+            slide.classList.toggle(
+                "is-active",
+                slideIndex === currentIndex
+            );
+        });
+
+        if (!animate) {
+            requestAnimationFrame(() => {
+                track.classList.remove("no-transition");
+            });
+        }
+
+        if (dotsContainer) {
+            dotsContainer
+                .querySelectorAll("button")
+                .forEach((dot, dotIndex) => {
+                    dot.classList.toggle(
+                        "is-active",
+                        dotIndex === currentIndex
+                    );
+                });
+        }
+    };
+
+    const goTo = (index) => {
+        render(index);
+        restart();
+    };
+
+    const restart = () => {
+        if (timer) {
+            clearInterval(timer);
+        }
+
+        timer = setInterval(() => {
+            render(currentIndex + 1);
+        }, options.interval || 4500);
+    };
+
+    if (prevButton) {
+        prevButton.addEventListener("click", () => {
+            goTo(currentIndex - 1);
+        });
+    }
+
+    if (nextButton) {
+        nextButton.addEventListener("click", () => {
+            goTo(currentIndex + 1);
+        });
+    }
+
+    if (dotsContainer) {
+        slides.forEach((_, index) => {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.setAttribute("aria-label", `Tampilkan foto ${index + 1}`);
+
+            dot.addEventListener("click", () => {
+                goTo(index);
+            });
+
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    let startX = 0;
+
+    root.addEventListener(
+        "touchstart",
+        (event) => {
+            startX = event.changedTouches[0].clientX;
+        },
+        { passive: true }
+    );
+
+    root.addEventListener(
+        "touchend",
+        (event) => {
+            const endX = event.changedTouches[0].clientX;
+            const distance = endX - startX;
+
+            if (Math.abs(distance) < 45) {
+                return;
+            }
+
+            goTo(currentIndex + (distance < 0 ? 1 : -1));
+        },
+        { passive: true }
+    );
+
+    root.addEventListener("mouseenter", () => {
+        if (timer) {
+            clearInterval(timer);
+        }
+    });
+
+    root.addEventListener("mouseleave", restart);
+
+    render(0, false);
+    restart();
+}
+
+
+function initCarousels() {
+    document
+        .querySelectorAll("[data-carousel]")
+        .forEach((carousel) => {
+            initCarousel(carousel);
+        });
+
+    document
+        .querySelectorAll("[data-product-carousel]")
+        .forEach((carousel) => {
+            initCarousel(carousel, { interval: 4000 });
+        });
+}
+
+
+/* =========================================================
+   5. MOBILE MENU
 ========================================================= */
 
 function initMobileMenu() {
@@ -442,7 +603,32 @@ function initImageHandling() {
 
 
 /* =========================================================
-   8. PRODUCT CARD HOVER
+   9. PRODUCT CARD IMAGE ROTATION
+========================================================= */
+
+function initProductCardCarousels() {
+    document
+        .querySelectorAll("[data-product-card-carousel]")
+        .forEach((carousel) => {
+            const images = carousel.querySelectorAll("img");
+
+            if (images.length < 2) {
+                return;
+            }
+
+            let index = 0;
+
+            setInterval(() => {
+                images[index].classList.remove("is-active");
+                index = (index + 1) % images.length;
+                images[index].classList.add("is-active");
+            }, 4200);
+        });
+}
+
+
+/* =========================================================
+   10. PRODUCT CARD HOVER
 ========================================================= */
 
 function initProductCards() {
@@ -626,6 +812,10 @@ document.addEventListener(
         initImageHandling();
 
         initProductCards();
+
+        initCarousels();
+
+        initProductCardCarousels();
 
         initSmoothLinks();
 
