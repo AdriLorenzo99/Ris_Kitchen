@@ -1,11 +1,11 @@
 // Data Produk 
 const products = [
-    { name: 'Cincau Gula Aren', price: 'IDR 13,000.00', colorClass: 'bg-yellow', image: 'assets/Cincau Gula Aren.jpg', link: 'cincau-gula-aren.html' },
-    { name: 'Thai Tea', price: 'IDR 15,000.00', colorClass: 'bg-orange', image: 'assets/Thai Tea.jpg', link: 'thai-tea.html' },
-    { name: 'Green Tea', price: 'IDR 15,000.00', colorClass: 'bg-green', image: 'assets/Green Tea.jpg', link: 'green-tea.html' },
-    { name: 'Cold Pressed Juice (Semangka & Nanas)', price: 'IDR 20,000.00', colorClass: 'bg-light-blue', image: null, link: '#' },
-    { name: 'Cold Pressed Juice (Pear & Nanas)', price: 'IDR 20,000.00', colorClass: 'bg-white', image: null, link: '#' },
-    { name: 'Kelapa Pandan', price: 'IDR 13,000.00', colorClass: 'bg-yellow', image: null, link: '#' }
+    { name: 'Cincau Gula Aren', price: 'IDR 13,000.00', colorClass: 'bg-yellow', image: 'assets/Cincau Gula Aren.webp', link: 'cincau-gula-aren.html' },
+    { name: 'Thai Tea', price: 'IDR 15,000.00', colorClass: 'bg-orange', image: 'assets/Thai Tea.webp', link: 'thai-tea.html' },
+    { name: 'Green Tea', price: 'IDR 15,000.00', colorClass: 'bg-green', image: 'assets/Green Tea.webp', link: 'green-tea.html' },
+    { name: 'Cold Pressed Juice (Semangka & Nanas)', price: 'IDR 20,000.00', colorClass: 'bg-white', image: null, link: '#' },
+    { name: 'Cold Pressed Juice (Pear & Nanas)', price: 'IDR 20,000.00', colorClass: 'bg-yellow', image: null, link: '#' },
+    { name: 'Kelapa Pandan', price: 'IDR 13,000.00', colorClass: 'bg-green', image: null, link: '#' }
 ];
 
 const WHATSAPP_NUMBER = '6285711544265';
