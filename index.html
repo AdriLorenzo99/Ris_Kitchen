@@ -1,633 +1,398 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>RIS Kitchen — Fresh Drinks, Good Mood</title>
-    <meta
-        name="description"
-        content="RIS Kitchen menyediakan minuman segar seperti Thai Tea, Green Tea, Cincau Gula Aren, Kelapa Pandan, dan Cold Pressed Juice."
-    >
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RIS Kitchen — Fresh Drinks, Good Mood</title>
+<meta content="RIS Kitchen menyediakan minuman segar seperti Thai Tea, Green Tea, Cincau Gula Aren, Kelapa Pandan, dan Cold Pressed Juice." name="description"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- CSS -->
+<link href="style.css" rel="stylesheet"/>
 </head>
-
 <body>
-
-    <!-- =========================
+<!-- =========================
          NAVBAR
     ========================== -->
-    <header class="navbar" id="navbar">
-        <div class="container nav-container">
-
-            <a href="index.html" class="logo-link">
-                <img
-                    src="assets/Ris Kitchen_ Logo.webp"
-                    alt="RIS Kitchen"
-                    class="nav-logo"
-                >
-            </a>
-
-            <nav class="nav-menu">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#menu" class="nav-link">Menu</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-
-            <a
-                href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order."
-                target="_blank"
-                rel="noopener noreferrer"
-                class="nav-order"
-            >
+<header class="navbar" id="navbar">
+<div class="container nav-container">
+<a class="logo-link" href="index.html">
+<img alt="RIS Kitchen" class="nav-logo" src="assets/Ris Kitchen_ Logo.webp"/>
+</a>
+<nav class="nav-menu">
+<a class="nav-link active" href="#home">Home</a>
+<a class="nav-link" href="#menu">Menu</a>
+<a class="nav-link" href="#about">About</a>
+<a class="nav-link" href="#contact">Contact</a>
+</nav>
+<a class="nav-order" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
                 Order Sekarang
                 <span class="arrow">↗</span>
-            </a>
-
-            <button
-                class="mobile-menu-button"
-                id="mobileMenuButton"
-                type="button"
-                aria-label="Buka menu"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-        </div>
-
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#home">Home</a>
-            <a href="#menu">Menu</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-
-            <a
-                href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order."
-                target="_blank"
-                rel="noopener noreferrer"
-            >
+</a>
+<button aria-label="Buka menu" class="mobile-menu-button" id="mobileMenuButton" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+<a href="#home">Home</a>
+<a href="#menu">Menu</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+<a data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
                 Order Sekarang ↗
             </a>
-        </div>
-    </header>
-
-
-    <!-- =========================
+</div>
+</header>
+<!-- =========================
          HERO
     ========================== -->
-    <main>
-
-        <section class="hero-section" id="home">
-
-            <div class="container hero-grid">
-
-                <div class="hero-content">
-
-                    <div class="hero-label">
-                        <span class="hero-label-dot"></span>
+<main>
+<section class="hero-section" id="home">
+<div class="container hero-grid">
+<div class="hero-content">
+<div class="hero-label">
+<span class="hero-label-dot"></span>
                         FRESH EVERY DAY
                     </div>
-
-                    <h1>
+<h1>
                         Segarnya Bikin
                         <span>Balik Lagi.</span>
-                    </h1>
-
-                    <p class="hero-description">
+</h1>
+<p class="hero-description">
                         Minuman segar yang dibuat untuk menemani hari kamu.
                         Simple, fresh, dan penuh rasa.
                     </p>
-
-                    <div class="hero-actions">
-
-                        <a href="#menu" class="primary-button">
+<div class="hero-actions">
+<a class="primary-button" href="#menu">
                             Lihat Menu
                             <span>↓</span>
-                        </a>
-
-                        <a href="#about" class="secondary-button">
+</a>
+<a class="secondary-button" href="#about">
                             Tentang Kami
                             <span>↗</span>
-                        </a>
-
-                    </div>
-
-                    <div class="hero-info">
-                        <div>
-                            <strong>100%</strong>
-                            <span>Fresh</span>
-                        </div>
-
-                        <div>
-                            <strong>6</strong>
-                            <span>Menu</span>
-                        </div>
-
-                        <div>
-                            <strong>RIS</strong>
-                            <span>Kitchen</span>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div class="hero-visual">
-
-                    <div
-                        class="hero-carousel"
-                        data-carousel="hero"
-                        aria-label="Galeri tiga menu RIS Kitchen"
-                    >
-                        <div class="hero-carousel-track">
-                            <div class="hero-carousel-slide is-active">
-                                <img
-                                    src="assets/3 Menu.webp"
-                                    alt="Tiga menu RIS Kitchen"
-                                >
-                            </div>
-
-                            <div class="hero-carousel-slide">
-                                <img
-                                    src="assets/3 Menu 2.webp"
-                                    alt="Tiga menu RIS Kitchen tampilan kedua"
-                                >
-                            </div>
-                        </div>
-
-                        <button
-                            class="carousel-arrow carousel-arrow-prev"
-                            type="button"
-                            data-carousel-prev
-                            aria-label="Foto sebelumnya"
-                        >
+</a>
+<a class="secondary-button" data-order="" href="#order-modal">
+                            Order Sekarang
+                            <span>↗</span>
+</a>
+</div>
+<div class="hero-info">
+<div>
+<strong>100%</strong>
+<span>Fresh</span>
+</div>
+<div>
+<strong>6</strong>
+<span>Menu</span>
+</div>
+<div>
+<strong>RIS</strong>
+<span>Kitchen</span>
+</div>
+</div>
+</div>
+<div class="hero-visual">
+<div aria-label="Galeri produk RIS Kitchen" class="hero-carousel" data-carousel="hero">
+<div class="hero-carousel-track">
+<div class="hero-carousel-slide is-active">
+<img alt="Tiga produk RIS Kitchen" src="assets/Tiga 3.jpg"/>
+</div>
+<div class="hero-carousel-slide">
+<img alt="Tiga produk RIS Kitchen tampilan kedua" src="assets/Tiga 2.jpg"/>
+</div>
+<div class="hero-carousel-slide">
+<img alt="Tiga produk RIS Kitchen tampilan ketiga" src="assets/Tiga 1.jpg"/>
+</div>
+<div class="hero-carousel-slide">
+<img alt="Seluruh produk RIS Kitchen" src="assets/All Product.jpg"/>
+</div>
+</div>
+<button aria-label="Foto sebelumnya" class="carousel-arrow carousel-arrow-prev" data-carousel-prev="" type="button">
                             ←
                         </button>
-
-                        <button
-                            class="carousel-arrow carousel-arrow-next"
-                            type="button"
-                            data-carousel-next
-                            aria-label="Foto berikutnya"
-                        >
+<button aria-label="Foto berikutnya" class="carousel-arrow carousel-arrow-next" data-carousel-next="" type="button">
                             →
                         </button>
-
-                        <div class="carousel-dots" data-carousel-dots></div>
-                    </div>
-
-                    <div class="hero-sticker sticker-fresh">
-                        <span>100%</span>
+<div class="carousel-dots" data-carousel-dots=""></div>
+</div>
+<div class="hero-sticker sticker-fresh">
+<span>100%</span>
                         FRESH
                     </div>
 </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
+</div>
+</section>
+<!-- =========================
              MARQUEE
         ========================== -->
-        <section class="marquee-section">
-
-            <div class="marquee-track">
-
-                <span>RIS Kitchen — Made Your Day</span>
-                <span class="marquee-star">✦</span>
-
-                <span>RIS Kitchen — Made Your Day</span>
-                <span class="marquee-star">✦</span>
-
-                <span>RIS Kitchen — Made Your Day</span>
-                <span class="marquee-star">✦</span>
-
-                <span>RIS Kitchen — Made Your Day</span>
-                <span class="marquee-star">✦</span>
-
-                <span>RIS Kitchen — Made Your Day</span>
-                <span class="marquee-star">✦</span>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
+<section class="marquee-section">
+<div class="marquee-track">
+<span>RIS Kitchen - Made Your Day</span>
+<span class="marquee-star">✦</span>
+<span>RIS Kitchen - Made Your Day</span>
+<span class="marquee-star">✦</span>
+<span>RIS Kitchen - Made Your Day</span>
+<span class="marquee-star">✦</span>
+<span>RIS Kitchen - Made Your Day</span>
+<span class="marquee-star">✦</span>
+<span>RIS Kitchen - Made Your Day</span>
+<span class="marquee-star">✦</span>
+</div>
+</section>
+<!-- =========================
              BEST SELLER
         ========================== -->
-        <section class="featured-section" id="best-seller">
-
-            <div class="container">
-
-                <div class="section-heading featured-heading">
-
-                    <div>
-                        <span class="section-eyebrow">BEST SELLER</span>
-
-                        <h2>
+<section class="featured-section" id="best-seller">
+<div class="container">
+<div class="section-heading featured-heading">
+<div>
+<span class="section-eyebrow">BEST SELLER</span>
+<h2>
                             Yang Paling
                             <span>Dicari.</span>
-                        </h2>
-                    </div>
-
-                    <p>
+</h2>
+</div>
+<p>
                         Satu tegukan dan kamu tahu kenapa Green Tea
                         jadi favorit di RIS Kitchen.
                     </p>
-
-                </div>
-
-
-                <div class="featured-card">
-
-                    <div class="featured-image">
-
-                        <img
-                            src="assets/Green Tea 2.webp"
-                            alt="Green Tea RIS Kitchen"
-                        >
-
-                        <div class="featured-tag">
+</div>
+<div class="featured-card">
+<div class="featured-image">
+<img alt="Green Tea RIS Kitchen" src="assets/Green Tea 2.jpg"/>
+<div class="featured-tag">
                             BEST SELLER
                         </div>
-
-                    </div>
-
-
-                    <div class="featured-content">
+</div>
+<div class="featured-content">
 <h3>Green Tea</h3>
-
-                        <p>
+<p>
                             Green tea dengan rasa yang ringan,
                             fresh, dan cocok untuk menemani aktivitas
                             kamu kapan saja.
                         </p>
-
-                        <div class="featured-bottom">
-
-                            <div class="featured-price">
-                                Rp 15.000
-                            </div>
-
-                            <a
-                                href="green-tea.html"
-                                class="black-button"
-                            >
-                                Lihat Produk
-                                <span>↗</span>
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
+<div class="featured-bottom">
+<div class="featured-price" aria-label="Harga Green Tea Rp 15.000"><span class="featured-price-currency">Rp</span><strong>15.000</strong></div>
+<div class="featured-actions">
+<a class="black-button" href="green-tea.html">
+                                    Lihat Produk
+                                    <span>↗</span>
+</a>
+<a class="black-button featured-order-button" data-order="" data-price="Rp 15.000" data-product="Green Tea" href="#order-modal">
+                                    Order Sekarang
+                                    <span>↗</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================
              MENU
         ========================== -->
-        <section class="menu-section" id="menu">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <div>
-                        <span class="section-eyebrow">OUR MENU</span>
-
-                        <h2>
+<section class="menu-section" id="menu">
+<div class="container">
+<div class="section-heading">
+<div>
+<span class="section-eyebrow">OUR MENU</span>
+<h2>
                             Pilih
                             <span>Favoritmu.</span>
-                        </h2>
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="menu-grid"
-                    id="menuGrid"
-                >
-                    <!-- Products rendered by script.js -->
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
+</h2>
+</div>
+</div>
+<div class="menu-grid" id="menuGrid">
+<!-- Products rendered by script.js -->
+</div>
+</div>
+</section>
+<!-- =========================
              ABOUT
         ========================== -->
-        <section class="about-section" id="about">
-
-            <div class="container about-grid">
-
-                <div class="about-image-wrapper">
-
-                    <img
-                        src="assets/3 Menu 2.webp"
-                        alt="RIS Kitchen"
-                        class="about-image"
-                    >
-
-                    <div class="about-badge">
-                        <span>RIS</span>
+<section class="about-section" id="about">
+<div class="container about-grid">
+<div class="about-image-wrapper">
+<img alt="RIS Kitchen" class="about-image" src="assets/Tiga 2.jpg"/>
+<div class="about-badge">
+<span>RIS</span>
                         KITCHEN
                     </div>
-
-                </div>
-
-
-                <div class="about-content">
-
-                    <span class="section-eyebrow">
-                        ABOUT US
-                    </span>
-
-                    <h2>
+</div>
+<div class="about-content">
+<div class="about-kicker-row">
+<span class="section-eyebrow">ABOUT US</span>
+<span class="about-kicker-line" aria-hidden="true"></span>
+<span class="about-kicker-note">FRESH BY NATURE</span>
+</div>
+<h2>
                         Dibuat Segar.
                         <span>Dibuat dengan Hati.</span>
-                    </h2>
-
-                    <p>
+</h2>
+<p>
                         RIS Kitchen hadir untuk membuat minuman yang
                         sederhana terasa lebih spesial. Kami percaya
                         bahwa minuman yang enak bisa membuat hari
                         menjadi lebih baik.
                     </p>
-
-                    <p>
+<p>
                         Dari tea-based drinks sampai cold pressed juice,
                         setiap menu dibuat dengan rasa yang fresh dan
                         mudah dinikmati.
                     </p>
-
-                    <div class="about-points">
-
-                        <div class="about-point">
-                            <strong>Fresh Ingredients</strong>
-                        </div>
-
-                        <div class="about-point">
-                            <strong>Made with Care</strong>
-                        </div>
-
-                        <div class="about-point">
-                            <strong>Good Mood</strong>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
+<div class="about-points">
+<div class="about-point">
+<span>01</span>
+<strong>Fresh Ingredients</strong>
+</div>
+<div class="about-point">
+<span>02</span>
+<strong>Made with Care</strong>
+</div>
+<div class="about-point">
+<span>03</span>
+<strong>Good Mood</strong>
+</div>
+</div>
+<div class="about-signature">
+<span>RIS KITCHEN</span>
+<span>GOOD DRINKS / GOOD DAY</span>
+</div>
+</div>
+</div>
+</section>
+<!-- =========================
              FRUIT SECTION
         ========================== -->
-        <section class="fruit-section">
-
-            <div class="container fruit-grid">
-
-                <div class="fruit-content">
-
-                    <span class="section-eyebrow">
+<section class="fruit-section">
+<div class="container fruit-grid">
+<div class="fruit-content">
+<span class="section-eyebrow">
                         FRESH CHOICE
                     </span>
-
-                    <h2>
+<h2>
                         Freshness
                         <span>Inside.</span>
-                    </h2>
-
-                    <p>
+</h2>
+<p>
                         Pilihan minuman segar untuk kamu yang ingin
                         sesuatu yang ringan, natural, dan menyegarkan.
                     </p>
-
-                    <a
-                        href="#menu"
-                        class="primary-button"
-                    >
+<a class="primary-button" href="#menu">
                         Explore Menu
                         <span>↓</span>
-                    </a>
-
-                </div>
-
-
-                <div class="fruit-visual">
-
-                    <div class="fruit-image-large">
-                        <img
-                            src="assets/3 Menu.webp"
-                            alt="Fresh drinks RIS Kitchen"
-                        >
-                    </div>
-
-                    <div class="fruit-circle">
+</a>
+</div>
+<div class="fruit-visual">
+<div class="fruit-image-large">
+<img alt="Fresh drinks RIS Kitchen" src="assets/All Product.jpg"/>
+</div>
+<div class="fruit-circle">
                         FRESH
                     </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
+</div>
+</div>
+</section>
+<!-- =========================
              CONTACT CTA
         ========================== -->
-        <section class="contact-section" id="contact">
-
-            <div class="container">
-
-                <div class="contact-card">
-
-                    <div class="contact-main">
-
-                        <span class="section-eyebrow">
+<section class="contact-section" id="contact">
+<div class="container">
+<div class="contact-card">
+<div class="contact-main">
+<span class="section-eyebrow">
                             LET'S TALK
                         </span>
-
-                        <h2>
+<h2>
                             Mau Order?
                             <span>Gas.</span>
-                        </h2>
-
-                        <p>
+</h2>
+<p>
                             Hubungi RIS Kitchen melalui WhatsApp
                             dan pesan minuman favorit kamu.
                         </p>
-
-                        <a
-                            href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="contact-button"
-                        >
+<a class="contact-button" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
                             Order via WhatsApp
                             <span>↗</span>
-                        </a>
-
-                    </div>
-
-
-                    <div class="contact-decoration">
-                        <div class="contact-circle">
-                            RIS<br>
+</a>
+</div>
+<div class="contact-decoration">
+<div class="contact-circle">
+                            RIS<br/>
                             KITCHEN
                         </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =========================
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- =========================
          FOOTER
     ========================== -->
-    <footer class="footer">
-
-        <div class="container">
-
-            <div class="footer-main">
-
-                <div class="footer-brand">
-
-                    <a href="#home">
-                        <img
-                            src="assets/Ris Kitchen_ Logo.webp"
-                            alt="RIS Kitchen"
-                            class="footer-logo"
-                        >
-                    </a>
-
-                    <p>
+<footer class="footer">
+<div class="container">
+<div class="footer-main">
+<div class="footer-brand">
+<a href="#home">
+<img alt="RIS Kitchen" class="footer-logo" src="assets/Ris Kitchen_ Logo.webp"/>
+</a>
+<p>
                         Fresh drinks for better days.
                     </p>
-
-                </div>
-
-
-                <div class="footer-links">
-
-                    <span class="footer-title">
+</div>
+<div class="footer-links">
+<span class="footer-title">
                         Navigation
                     </span>
-
-                    <a href="#home">Home</a>
-                    <a href="#menu">Menu</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-
-                </div>
-
-
-                <div class="footer-contact">
-
-                    <span class="footer-title">
+<a href="#home">Home</a>
+<a href="#menu">Menu</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</div>
+<div class="footer-contact">
+<span class="footer-title">
                         Contact
                     </span>
-
-                    <a
-                        href="https://instagram.com/riskitchen99"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+<a href="https://instagram.com/riskitchen99" rel="noopener noreferrer" target="_blank">
                         Instagram
                         <span>↗</span>
-                    </a>
-
-                    <a
-                        href="https://wa.me/6285711544265"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+</a>
+<a data-whatsapp-general="" href="#whatsapp-general" rel="noopener noreferrer" target="_blank">
                         WhatsApp
                         <span>↗</span>
-                    </a>
-
-                    <span>
+</a>
+<span>
                         Jakarta, Indonesia
                     </span>
-
-                </div>
-
-
-                <div class="footer-order">
-
-                    <span class="footer-title">
+</div>
+<div class="footer-order">
+<span class="footer-title">
                         Ready?
                     </span>
-
-                    <a
-                        href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="footer-order-button"
-                    >
+<a class="footer-order-button" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
                         Order Sekarang
                         <span>↗</span>
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <div class="footer-bottom">
-
-                <span>
+</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>
                     RIS Kitchen
                 </span>
-
-                <span>
+<span>
                     © 2026
                 </span>
-
-            </div>
-
-        </div>
-
-    </footer>
-
-
-    <!-- =========================
+</div>
+</div>
+</footer>
+<!-- =========================
          JAVASCRIPT
     ========================== -->
-    <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>

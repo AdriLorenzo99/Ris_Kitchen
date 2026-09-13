@@ -1,164 +1,134 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Thai Tea — RIS Kitchen</title>
-    <meta name="description" content="Thai Tea RIS Kitchen — minuman fresh untuk menemani hari kamu.">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thai Tea — RIS Kitchen</title>
+<meta content="Thai Tea RIS Kitchen — minuman fresh untuk menemani hari kamu." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
 </head>
-
-<body class="detail-page">
-
+<body class="detail-page" data-product-id="thai-tea">
 <header class="navbar">
-    <div class="container nav-container">
-        <a href="index.html" class="logo-link">
-            <img src="assets/Ris Kitchen_ Logo.webp" alt="RIS Kitchen" class="nav-logo">
-        </a>
-
-        <nav class="nav-menu">
-            <a href="index.html#home" class="nav-link">Home</a>
-            <a href="index.html#menu" class="nav-link active">Menu</a>
-            <a href="index.html#about" class="nav-link">About</a>
-            <a href="index.html#contact" class="nav-link">Contact</a>
-        </nav>
-
-        <a href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order%20Thai%20Tea."
-           target="_blank" rel="noopener noreferrer" class="nav-order">
+<div class="container nav-container">
+<a class="logo-link" href="index.html">
+<img alt="RIS Kitchen" class="nav-logo" src="assets/Ris Kitchen_ Logo.webp"/>
+</a>
+<nav class="nav-menu">
+<a class="nav-link" href="index.html#home">Home</a>
+<a class="nav-link active" href="index.html#menu">Menu</a>
+<a class="nav-link" href="index.html#about">About</a>
+<a class="nav-link" href="index.html#contact">Contact</a>
+</nav>
+<a class="nav-order" data-order="" href="#order-modal">
             Order Sekarang <span class="arrow">↗</span>
-        </a>
-
-        <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Buka menu">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html#home">Home</a>
-        <a href="index.html#menu">Menu</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#contact">Contact</a>
-        <a href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order%20Thai%20Tea."
-           target="_blank" rel="noopener noreferrer">Order Sekarang ↗</a>
-    </div>
+</a>
+<button aria-label="Buka menu" class="mobile-menu-button" id="mobileMenuButton" type="button">
+<span></span><span></span><span></span>
+</button>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html#home">Home</a>
+<a href="index.html#menu">Menu</a>
+<a href="index.html#about">About</a>
+<a href="index.html#contact">Contact</a>
+<a data-order="" href="#order-modal">Order Sekarang ↗</a>
+</div>
 </header>
-
 <main>
-    <section class="product-detail-section">
-        <div class="container">
-            <div class="product-detail-grid">
-
-                <div class="product-detail-image product-carousel" data-product-carousel aria-label="Galeri Thai Tea">
-                    <div class="product-carousel-track">
-                        <div class="product-carousel-slide is-active">
-                            <img src="assets/Thai Tea.webp" alt="Thai Tea RIS Kitchen">
-                        </div>
-                        <div class="product-carousel-slide">
-                            <img src="assets/Thai Tea2.webp" alt="Thai Tea RIS Kitchen tampilan kedua">
-                        </div>
-                    </div>
-
-                    <button class="carousel-arrow carousel-arrow-prev" type="button"
-                            data-carousel-prev aria-label="Foto sebelumnya">←</button>
-                    <button class="carousel-arrow carousel-arrow-next" type="button"
-                            data-carousel-next aria-label="Foto berikutnya">→</button>
-                    <div class="carousel-dots" data-carousel-dots></div>
-                </div>
-
-                <div class="product-detail-content">
-                    <span class="section-eyebrow">RIS KITCHEN MENU</span>
-
-                    <h1>Thai Tea<span style="color: var(--orange);">.</span></h1>
-
-                    <p>Thai Tea RIS Kitchen hadir dengan rasa teh yang khas, creamy, dan menyegarkan. Cocok untuk menemani aktivitas kamu kapan saja.</p>
-
-                    <div class="product-detail-price">Rp 15.000</div>
-
-                    <div class="product-detail-actions">
-                        <a href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order%20Thai%20Tea%20seharga%20Rp%2015.000."
-                           target="_blank" rel="noopener noreferrer" class="primary-button">
+<section class="product-detail-section">
+<div class="container">
+<div class="product-detail-grid">
+<div aria-label="Galeri Thai Tea" class="product-detail-image product-carousel" data-product-carousel="">
+<div class="product-carousel-track">
+<div class="product-carousel-slide is-active">
+<img alt="Thai Tea RIS Kitchen — foto 1" loading="eager" src="assets/Thai Tea 1.jpg"/>
+</div>
+<div class="product-carousel-slide">
+<img alt="Thai Tea RIS Kitchen — foto 2" loading="lazy" src="assets/Thai tea 2.jpg"/>
+</div>
+</div>
+<button aria-label="Foto sebelumnya" class="carousel-arrow carousel-arrow-prev" data-carousel-prev="" type="button">←</button>
+<button aria-label="Foto berikutnya" class="carousel-arrow carousel-arrow-next" data-carousel-next="" type="button">→</button>
+<div class="carousel-dots" data-carousel-dots=""></div>
+</div>
+<div class="product-detail-content">
+<span class="section-eyebrow">RIS KITCHEN MENU</span>
+<h1>Thai Tea<span style="color: var(--orange);">.</span></h1>
+<p>Thai Tea RIS Kitchen hadir dengan rasa teh yang khas, creamy, dan menyegarkan. Cocok untuk menemani aktivitas kamu kapan saja.</p>
+<div class="product-detail-price">Rp 15.000</div>
+<div class="product-detail-actions">
+<a class="primary-button" data-order="" href="#order-modal">
                             Order Sekarang <span>↗</span>
-                        </a>
-                        <a href="index.html#menu" class="secondary-button">← Kembali ke Menu</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="marquee-section">
-        <div class="marquee-track">
-            <span>RIS Kitchen — Made Your Day</span><span class="marquee-star">✦</span>
-            <span>RIS Kitchen — Made Your Day</span><span class="marquee-star">✦</span>
-            <span>RIS Kitchen — Made Your Day</span><span class="marquee-star">✦</span>
-            <span>RIS Kitchen — Made Your Day</span><span class="marquee-star">✦</span>
-        </div>
-    </section>
-
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-card">
-                <div class="contact-main">
-                    <span class="section-eyebrow">WANT SOMETHING ELSE?</span>
-                    <h2>Coba Menu <span>Lain.</span></h2>
-                    <p>Masih banyak pilihan minuman fresh lainnya di RIS Kitchen.</p>
-                    <a href="index.html#menu" class="contact-button">Lihat Semua Menu <span>↗</span></a>
-                </div>
-                <div class="contact-decoration">
-                    <div class="contact-circle">RIS<br>KITCHEN</div>
-                </div>
-            </div>
-        </div>
-    </section>
+</a>
+<a class="secondary-button" href="index.html#menu">← Kembali ke Menu</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="marquee-section">
+<div class="marquee-track">
+<span>RIS Kitchen - Made Your Day</span><span class="marquee-star">✦</span>
+<span>RIS Kitchen - Made Your Day</span><span class="marquee-star">✦</span>
+<span>RIS Kitchen - Made Your Day</span><span class="marquee-star">✦</span>
+<span>RIS Kitchen - Made Your Day</span><span class="marquee-star">✦</span>
+</div>
+</section>
+<section class="contact-section">
+<div class="container">
+<div class="contact-card">
+<div class="contact-main">
+<span class="section-eyebrow">WANT SOMETHING ELSE?</span>
+<h2>Coba Menu <span>Lain.</span></h2>
+<p>Masih banyak pilihan minuman fresh lainnya di RIS Kitchen.</p>
+<a class="contact-button" href="index.html#menu">Lihat Semua Menu <span>↗</span></a>
+</div>
+<div class="contact-decoration">
+<div class="contact-circle">RIS<br/>KITCHEN</div>
+</div>
+</div>
+</div>
+</section>
 </main>
-
 <footer class="footer">
-    <div class="container">
-        <div class="footer-main">
-            <div class="footer-brand">
-                <a href="index.html">
-                    <img src="assets/Ris Kitchen_ Logo.webp" alt="RIS Kitchen" class="footer-logo">
-                </a>
-                <p>Fresh drinks for better days.</p>
-            </div>
-
-            <div class="footer-links">
-                <span class="footer-title">Navigation</span>
-                <a href="index.html#home">Home</a>
-                <a href="index.html#menu">Menu</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#contact">Contact</a>
-            </div>
-
-            <div class="footer-contact">
-                <span class="footer-title">Contact</span>
-                <a href="https://instagram.com/riskitchen99" target="_blank" rel="noopener noreferrer">Instagram <span>↗</span></a>
-                <a href="https://wa.me/6285711544265" target="_blank" rel="noopener noreferrer">WhatsApp <span>↗</span></a>
-                <span>Jakarta, Indonesia</span>
-            </div>
-
-            <div class="footer-order">
-                <span class="footer-title">Ready?</span>
-                <a href="https://wa.me/6285711544265?text=Halo%20RIS%20Kitchen%2C%20saya%20ingin%20order%20Thai%20Tea."
-                   target="_blank" rel="noopener noreferrer" class="footer-order-button">
+<div class="container">
+<div class="footer-main">
+<div class="footer-brand">
+<a href="index.html">
+<img alt="RIS Kitchen" class="footer-logo" src="assets/Ris Kitchen_ Logo.webp"/>
+</a>
+<p>Fresh drinks for better days.</p>
+</div>
+<div class="footer-links">
+<span class="footer-title">Navigation</span>
+<a href="index.html#home">Home</a>
+<a href="index.html#menu">Menu</a>
+<a href="index.html#about">About</a>
+<a href="index.html#contact">Contact</a>
+</div>
+<div class="footer-contact">
+<span class="footer-title">Contact</span>
+<a href="https://instagram.com/riskitchen99" rel="noopener noreferrer" target="_blank">Instagram <span>↗</span></a>
+<a data-whatsapp-general="" href="#whatsapp-general">WhatsApp <span>↗</span></a>
+<span>Jakarta, Indonesia</span>
+</div>
+<div class="footer-order">
+<span class="footer-title">Ready?</span>
+<a class="footer-order-button" data-order="" href="#order-modal">
                     Order Sekarang <span>↗</span>
-                </a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <span>RIS Kitchen</span>
-            <span>© <span data-current-year>2026</span></span>
-        </div>
-    </div>
+</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>RIS Kitchen</span>
+<span>© <span data-current-year="">2026</span></span>
+</div>
+</div>
 </footer>
-
 <script src="script.js"></script>
 </body>
 </html>

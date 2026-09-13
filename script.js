@@ -1,147 +1,283 @@
 /* =========================================================
    RIS KITCHEN
-   Main JavaScript
+   Main JavaScript — lightweight static-site interactions
 ========================================================= */
-
 
 /* =========================================================
-   1. PRODUCT DATA
+   1. CENTRAL PRODUCT + ORDER CONFIG
 ========================================================= */
+
+const WHATSAPP_GENERAL = "6285780664567";
+const WHATSAPP_UNJ = "6285711544265";
 
 const products = [
     {
-        id: 1,
-        name: "Cincau Gula Aren",
-        price: "Rp 13.000",
-        priceNumber: "13,000",
-        colorClass: "bg-yellow",
-        images: ["assets/Cincau Gula Aren.webp", "assets/Cincau Gula Aren2.webp"],
-        description: "Perpaduan cincau yang lembut dengan manisnya gula aren.",
-        link: "cincau-gula-aren.html"
-    },
-
-    {
-        id: 2,
+        id: "thai-tea",
         name: "Thai Tea",
         price: "Rp 15.000",
-        priceNumber: "15,000",
         colorClass: "bg-orange",
-        images: ["assets/Thai Tea.webp", "assets/Thai Tea2.webp"],
+        images: ["assets/Thai Tea 1.jpg", "assets/Thai tea 2.jpg"],
         description: "Thai tea creamy dengan rasa teh yang khas dan menyegarkan.",
         link: "thai-tea.html"
     },
-
     {
-        id: 3,
+        id: "green-tea",
         name: "Green Tea",
         price: "Rp 15.000",
-        priceNumber: "15,000",
         colorClass: "bg-green",
-        images: ["assets/Green Tea.webp", "assets/Green Tea 2.webp"],
+        images: ["assets/Green Tea 1.jpg", "assets/Green Tea 2.jpg"],
         description: "Green tea ringan dan fresh untuk menemani hari kamu.",
         link: "green-tea.html"
     },
-
     {
-        id: 4,
-        name: "Cold Pressed Juice (Semangka & Nanas)",
-        price: "Rp 20.000",
-        priceNumber: "20,000",
-        colorClass: "bg-white",
-
-        /*
-         * Tidak mengganti atau membuat aset baru.
-         * Untuk produk yang belum memiliki foto khusus,
-         * gunakan visual yang sudah tersedia di project.
-         */
-        images: ["assets/3 Menu.webp", "assets/3 Menu 2.webp"],
-
-        description: "Perpaduan segarnya semangka dan nanas dalam cold pressed juice.",
-        link: "cold-pressed-semangka-nanas.html"
-    },
-
-    {
-        id: 5,
-        name: "Cold Pressed Juice (Pear & Nanas)",
-        price: "Rp 20.000",
-        priceNumber: "20,000",
+        id: "cincau-gula-aren",
+        name: "Cincau Gula Aren",
+        price: "Rp 13.000",
         colorClass: "bg-yellow",
-
-        /*
-         * Mempertahankan aset yang sudah ada.
-         */
-        images: ["assets/3 Menu 2.webp", "assets/3 Menu.webp"],
-
-        description: "Perpaduan pear dan nanas yang ringan, fresh, dan menyegarkan.",
-        link: "cold-pressed-pear-nanas.html"
+        images: ["assets/Cincau 1.jpg", "assets/Cincau 2.jpg"],
+        description: "Perpaduan cincau yang lembut dengan manisnya gula aren.",
+        link: "cincau-gula-aren.html"
     },
-
     {
-        id: 6,
+        id: "kelapa-pandan",
         name: "Kelapa Pandan",
         price: "Rp 13.000",
-        priceNumber: "13,000",
         colorClass: "bg-green",
-
-        /*
-         * Mempertahankan aset yang sudah ada.
-         */
-        images: ["assets/Green Tea.webp", "assets/Green Tea 2.webp"],
-
+        images: ["assets/Kelapa 1.jpg", "assets/Kelapa Pandan 2.jpg"],
         description: "Kesegaran kelapa dengan aroma pandan yang lembut.",
         link: "kelapa-pandan.html"
+    },
+    {
+        id: "jus-semangka-nanas",
+        name: "Cold Pressed Juice (Semangka & Nanas)",
+        price: "Rp 20.000",
+        colorClass: "bg-white",
+        images: ["assets/Jus Semangka Nanas.jpg", "assets/Jus Semangka Nanas 2.jpg"],
+        description: "Perpaduan segarnya semangka dan nanas dalam cold pressed juice.",
+        link: "jus-semangka-nanas.html"
+    },
+    {
+        id: "jus-pear-nanas",
+        name: "Cold Pressed Juice (Pear & Nanas)",
+        price: "Rp 20.000",
+        colorClass: "bg-yellow",
+        images: ["assets/Jus Pear Nanas 1.jpg", "assets/Jus Pear Nanas2.jpg"],
+        description: "Perpaduan pear dan nanas yang ringan, fresh, dan menyegarkan.",
+        link: "jus-pear-nanas.html"
     }
 ];
 
-
-/* =========================================================
-   2. WHATSAPP
-========================================================= */
-
-const WHATSAPP_NUMBER = "6285711544265";
-
-
-function orderWhatsApp(productName, productPrice) {
-
-    const message =
-        `Halo RIS Kitchen, saya ingin order ${productName} seharga ${productPrice}.`;
-
-    const whatsappURL =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
-    window.open(whatsappURL, "_blank", "noopener,noreferrer");
+function getProduct(id) {
+    return products.find((product) => product.id === id) || null;
 }
 
+function getPageProduct() {
+    return getProduct(document.body?.dataset.productId);
+}
 
 /* =========================================================
-   3. RENDER PRODUCT MENU
+   2. ORDER MODAL
+========================================================= */
+
+let orderModal;
+let orderModalLastTrigger;
+
+function getOrderProduct(trigger) {
+    if (trigger?.dataset.product) {
+        return {
+            name: trigger.dataset.product,
+            price: trigger.dataset.price || ""
+        };
+    }
+
+    const pageProduct = getPageProduct();
+
+    return pageProduct
+        ? { name: pageProduct.name, price: pageProduct.price }
+        : null;
+}
+
+function createOrderModal() {
+    if (document.getElementById("orderModal")) {
+        orderModal = document.getElementById("orderModal");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.className = "order-modal";
+    modal.id = "orderModal";
+    modal.hidden = true;
+    modal.innerHTML = `
+        <div class="order-modal-overlay" data-order-close></div>
+        <section
+            class="order-modal-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="orderModalTitle"
+        >
+            <button
+                class="order-modal-close"
+                type="button"
+                aria-label="Tutup pilihan area"
+                data-order-close
+            >×</button>
+
+            <span class="section-eyebrow">RIS KITCHEN ORDER</span>
+            <h2 id="orderModalTitle">Order di Mana?</h2>
+            <p>Pilih area pemesanan:</p>
+
+            <div class="order-modal-options">
+                <button type="button" class="order-area-button" data-order-area="general">
+                    <span>Area Umum</span>
+                    <span>↗</span>
+                </button>
+                <button type="button" class="order-area-button" data-order-area="unj">
+                    <span>Area UNJ</span>
+                    <span>↗</span>
+                </button>
+            </div>
+
+            <button type="button" class="order-modal-cancel" data-order-close>
+                Tutup
+            </button>
+        </section>
+    `;
+
+    document.body.appendChild(modal);
+    orderModal = modal;
+
+    modal.addEventListener("click", (event) => {
+        const closeTarget = event.target.closest("[data-order-close]");
+        if (closeTarget) {
+            closeOrderModal();
+            return;
+        }
+
+        const areaButton = event.target.closest("[data-order-area]");
+        if (areaButton) {
+            submitOrder(areaButton.dataset.orderArea);
+        }
+    });
+}
+
+function openOrderModal(trigger) {
+    createOrderModal();
+
+    orderModalLastTrigger = trigger || document.activeElement;
+
+    const product = getOrderProduct(trigger);
+    orderModal.dataset.productName = product?.name || "";
+    orderModal.dataset.productPrice = product?.price || "";
+
+    orderModal.hidden = false;
+    document.body.classList.add("modal-open");
+
+    requestAnimationFrame(() => {
+        orderModal.classList.add("is-open");
+        orderModal.querySelector(".order-modal-close")?.focus();
+    });
+}
+
+function closeOrderModal() {
+    if (!orderModal) {
+        return;
+    }
+
+    orderModal.classList.remove("is-open");
+    document.body.classList.remove("modal-open");
+
+    window.setTimeout(() => {
+        if (orderModal) {
+            orderModal.hidden = true;
+        }
+        orderModalLastTrigger?.focus?.();
+    }, 180);
+}
+
+function submitOrder(area) {
+    const number = area === "unj" ? WHATSAPP_UNJ : WHATSAPP_GENERAL;
+    const areaName = area === "unj" ? "Area UNJ" : "Area Umum";
+    const productName = orderModal?.dataset.productName;
+    const productPrice = orderModal?.dataset.productPrice;
+
+    const lines = [
+        "Halo RIS Kitchen!",
+        "",
+        productName
+            ? `Saya ingin order:
+Produk: ${productName}
+Harga: ${productPrice}
+Area: ${areaName}`
+            : `Saya ingin order.
+Area: ${areaName}`,
+        "",
+        "Terima kasih!"
+    ];
+
+    const url = `https://wa.me/${number}?text=${encodeURIComponent(lines.join("\n"))}`;
+
+    closeOrderModal();
+    window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function initOrderSystem() {
+    createOrderModal();
+
+    document.addEventListener("click", (event) => {
+        const trigger = event.target.closest("[data-order]");
+        if (!trigger) {
+            return;
+        }
+
+        event.preventDefault();
+        openOrderModal(trigger);
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && orderModal && !orderModal.hidden) {
+            closeOrderModal();
+        }
+    });
+
+    document.querySelectorAll("[data-whatsapp-general]").forEach((link) => {
+        link.href = `https://wa.me/${WHATSAPP_GENERAL}`;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+    });
+
+    const pageProduct = getPageProduct();
+
+    if (pageProduct) {
+        document
+            .querySelectorAll(".product-detail-actions .primary-button")
+            .forEach((button) => {
+                button.dataset.order = "";
+                button.dataset.product = pageProduct.name;
+                button.dataset.price = pageProduct.price;
+                button.removeAttribute("href");
+                button.removeAttribute("target");
+            });
+    }
+}
+
+/* =========================================================
+   3. PRODUCT MENU
 ========================================================= */
 
 function renderProducts() {
-
     const menuGrid = document.getElementById("menuGrid");
 
     if (!menuGrid) {
         return;
     }
 
-    menuGrid.innerHTML = "";
-
-
-    products.forEach((product) => {
-
-        const card = document.createElement("article");
-
-        card.className = `product-card ${product.colorClass}`;
-
-
-        card.innerHTML = `
+    menuGrid.innerHTML = products.map((product) => `
+        <article class="product-card ${product.colorClass}">
             <a
                 href="${product.link}"
                 class="product-card-image"
                 aria-label="Lihat detail ${product.name}"
             >
-
                 <div
                     class="product-card-carousel"
                     data-product-card-carousel
@@ -157,48 +293,25 @@ function renderProducts() {
                             >
                         `).join("")}
                     </div>
-
                     <span class="product-card-dots" aria-hidden="true"></span>
                 </div>
-
             </a>
 
-
             <div class="product-card-content">
-
-                <h3>
-                    ${product.name}
-                </h3>
-
-                <p>
-                    ${product.description}
-                </p>
-
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
 
                 <div class="product-card-footer">
+                    <span class="product-price">${product.price}</span>
 
-                    <span class="product-price">
-                        ${product.price}
-                    </span>
-
-                    <a
-                        href="${product.link}"
-                        class="product-view-button"
-                    >
+                    <a href="${product.link}" class="product-view-button">
                         Lihat Produk ↗
                     </a>
-
                 </div>
-
             </div>
-        `;
-
-
-        menuGrid.appendChild(card);
-
-    });
+        </article>
+    `).join("");
 }
-
 
 /* =========================================================
    4. REUSABLE CAROUSEL
@@ -208,7 +321,6 @@ function initCarousel(root, options = {}) {
     const track = root.querySelector(
         ".hero-carousel-track, .product-carousel-track"
     );
-
     const slides = root.querySelectorAll(
         ".hero-carousel-slide, .product-carousel-slide"
     );
@@ -234,130 +346,88 @@ function initCarousel(root, options = {}) {
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
         slides.forEach((slide, slideIndex) => {
-            slide.classList.toggle(
-                "is-active",
-                slideIndex === currentIndex
-            );
+            slide.classList.toggle("is-active", slideIndex === currentIndex);
+        });
+
+        dotsContainer?.querySelectorAll("button").forEach((dot, dotIndex) => {
+            dot.classList.toggle("is-active", dotIndex === currentIndex);
         });
 
         if (!animate) {
-            requestAnimationFrame(() => {
-                track.classList.remove("no-transition");
-            });
+            requestAnimationFrame(() => track.classList.remove("no-transition"));
         }
-
-        if (dotsContainer) {
-            dotsContainer
-                .querySelectorAll("button")
-                .forEach((dot, dotIndex) => {
-                    dot.classList.toggle(
-                        "is-active",
-                        dotIndex === currentIndex
-                    );
-                });
-        }
-    };
-
-    const goTo = (index) => {
-        render(index);
-        restart();
     };
 
     const restart = () => {
-        if (timer) {
-            clearInterval(timer);
-        }
-
-        timer = setInterval(() => {
-            render(currentIndex + 1);
-        }, options.interval || 4500);
+        window.clearInterval(timer);
+        timer = window.setInterval(
+            () => render(currentIndex + 1),
+            options.interval || 4500
+        );
     };
 
-    if (prevButton) {
-        prevButton.addEventListener("click", () => {
-            goTo(currentIndex - 1);
-        });
-    }
+    prevButton?.addEventListener("click", () => {
+        render(currentIndex - 1);
+        restart();
+    });
 
-    if (nextButton) {
-        nextButton.addEventListener("click", () => {
-            goTo(currentIndex + 1);
-        });
-    }
+    nextButton?.addEventListener("click", () => {
+        render(currentIndex + 1);
+        restart();
+    });
 
     if (dotsContainer) {
         slides.forEach((_, index) => {
             const dot = document.createElement("button");
             dot.type = "button";
             dot.setAttribute("aria-label", `Tampilkan foto ${index + 1}`);
-
             dot.addEventListener("click", () => {
-                goTo(index);
+                render(index);
+                restart();
             });
-
             dotsContainer.appendChild(dot);
         });
     }
 
     let startX = 0;
 
-    root.addEventListener(
-        "touchstart",
-        (event) => {
-            startX = event.changedTouches[0].clientX;
-        },
-        { passive: true }
-    );
+    root.addEventListener("touchstart", (event) => {
+        startX = event.changedTouches[0].clientX;
+    }, { passive: true });
 
-    root.addEventListener(
-        "touchend",
-        (event) => {
-            const endX = event.changedTouches[0].clientX;
-            const distance = endX - startX;
+    root.addEventListener("touchend", (event) => {
+        const distance = event.changedTouches[0].clientX - startX;
 
-            if (Math.abs(distance) < 45) {
-                return;
-            }
-
-            goTo(currentIndex + (distance < 0 ? 1 : -1));
-        },
-        { passive: true }
-    );
-
-    root.addEventListener("mouseenter", () => {
-        if (timer) {
-            clearInterval(timer);
+        if (Math.abs(distance) < 45) {
+            return;
         }
-    });
 
+        render(currentIndex + (distance < 0 ? 1 : -1));
+        restart();
+    }, { passive: true });
+
+    root.addEventListener("mouseenter", () => window.clearInterval(timer));
     root.addEventListener("mouseleave", restart);
 
     render(0, false);
     restart();
 }
 
-
 function initCarousels() {
-    document
-        .querySelectorAll("[data-carousel]")
-        .forEach((carousel) => {
-            initCarousel(carousel);
-        });
+    document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+        initCarousel(carousel);
+    });
 
-    document
-        .querySelectorAll("[data-product-carousel]")
-        .forEach((carousel) => {
-            initCarousel(carousel, { interval: 4000 });
-        });
+    document.querySelectorAll("[data-product-carousel]").forEach((carousel) => {
+        initCarousel(carousel, { interval: 4000 });
+    });
 }
-
 
 /* =========================================================
    5. MOBILE MENU
 ========================================================= */
 
 function initMobileMenu() {
-
     const button = document.getElementById("mobileMenuButton");
     const mobileMenu = document.getElementById("mobileMenu");
 
@@ -365,463 +435,197 @@ function initMobileMenu() {
         return;
     }
 
+    button.setAttribute("aria-expanded", "false");
 
     button.addEventListener("click", () => {
-
-        mobileMenu.classList.toggle("open");
-
+        const isOpen = mobileMenu.classList.toggle("open");
+        button.setAttribute("aria-expanded", String(isOpen));
     });
 
-
-    /*
-     * Tutup mobile menu ketika link diklik.
-     */
-
-    const mobileLinks =
-        mobileMenu.querySelectorAll("a");
-
-
-    mobileLinks.forEach((link) => {
-
+    mobileMenu.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
-
             mobileMenu.classList.remove("open");
-
+            button.setAttribute("aria-expanded", "false");
         });
-
     });
-
 }
 
-
 /* =========================================================
-   5. NAVBAR ACTIVE LINK
+   6. NAVBAR ACTIVE LINK
 ========================================================= */
 
 function initNavbar() {
-
-    const sections =
-        document.querySelectorAll("main section[id]");
-
-    const navLinks =
-        document.querySelectorAll(".nav-link");
-
+    const sections = document.querySelectorAll("main section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
 
     if (!sections.length || !navLinks.length) {
         return;
     }
 
-
     function updateActiveLink() {
-
         let currentSection = "home";
 
-
         sections.forEach((section) => {
+            const sectionTop = section.offsetTop - 160;
+            const sectionBottom = sectionTop + section.offsetHeight;
 
-            const sectionTop =
-                section.offsetTop - 160;
-
-            const sectionBottom =
-                sectionTop + section.offsetHeight;
-
-
-            if (
-                window.scrollY >= sectionTop &&
-                window.scrollY < sectionBottom
-            ) {
-
+            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
                 currentSection = section.id;
-
             }
-
         });
-
 
         navLinks.forEach((link) => {
-
-            link.classList.remove("active");
-
-
-            const href =
-                link.getAttribute("href");
-
-
-            if (href === `#${currentSection}`) {
-
-                link.classList.add("active");
-
-            }
-
+            link.classList.toggle(
+                "active",
+                link.getAttribute("href") === `#${currentSection}`
+            );
         });
-
     }
 
-
-    window.addEventListener(
-        "scroll",
-        updateActiveLink,
-        { passive: true }
-    );
-
-
+    window.addEventListener("scroll", updateActiveLink, { passive: true });
     updateActiveLink();
-
 }
 
-
 /* =========================================================
-   6. SCROLL REVEAL
+   7. SCROLL REVEAL
 ========================================================= */
 
 function initScrollReveal() {
-
-    /*
-     * Tambahkan class reveal ke elemen
-     * yang ingin dianimasikan.
-     */
-
     const revealElements = document.querySelectorAll(
-        ".section-heading, " +
-        ".featured-card, " +
-        ".product-card, " +
-        ".about-image-wrapper, " +
-        ".about-content, " +
-        ".fruit-content, " +
-        ".fruit-visual, " +
-        ".contact-card"
+        ".section-heading, .featured-card, .product-card, " +
+        ".about-image-wrapper, .about-content, .fruit-content, " +
+        ".fruit-visual, .contact-card"
     );
 
-
-    revealElements.forEach((element) => {
-
-        element.classList.add("reveal");
-
-    });
-
-
-    /*
-     * Jika browser tidak mendukung
-     * IntersectionObserver, tampilkan semuanya.
-     */
+    revealElements.forEach((element) => element.classList.add("reveal"));
 
     if (!("IntersectionObserver" in window)) {
-
-        revealElements.forEach((element) => {
-
-            element.classList.add("visible");
-
-        });
-
+        revealElements.forEach((element) => element.classList.add("visible"));
         return;
-
     }
 
-
-    const observer =
-        new IntersectionObserver(
-            (entries, observerInstance) => {
-
-                entries.forEach((entry) => {
-
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
-
-                    entry.target.classList.add("visible");
-
-
-                    observerInstance.unobserve(
-                        entry.target
-                    );
-
-                });
-
-            },
-            {
-                threshold: 0.12
+    const observer = new IntersectionObserver((entries, observerInstance) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+                return;
             }
-        );
 
+            entry.target.classList.add("visible");
+            observerInstance.unobserve(entry.target);
+        });
+    }, { threshold: 0.12 });
 
-    revealElements.forEach((element) => {
-
-        observer.observe(element);
-
-    });
-
+    revealElements.forEach((element) => observer.observe(element));
 }
 
-
 /* =========================================================
-   7. IMAGE ERROR HANDLING
+   8. IMAGE HANDLING
 ========================================================= */
 
 function initImageHandling() {
-
-    const images =
-        document.querySelectorAll("img");
-
-
-    images.forEach((image) => {
-
+    document.querySelectorAll("img").forEach((image) => {
         image.addEventListener("error", () => {
-
-            /*
-             * Jangan membuat gambar baru.
-             * Jika aset benar-benar tidak ditemukan,
-             * beri tampilan netral agar layout tidak rusak.
-             */
-
-            image.style.display = "none";
-
-            const parent =
-                image.closest(
-                    ".product-card-image, " +
-                    ".hero-image-main, " +
-                    ".hero-image-secondary, " +
-                    ".featured-image, " +
-                    ".about-image-wrapper, " +
-                    ".fruit-image-large"
-                );
-
-
-            if (parent) {
-
-                parent.classList.add(
-                    "image-error"
-                );
-
-            }
-
+            image.classList.add("image-error");
         });
-
     });
-
 }
-
 
 /* =========================================================
    9. PRODUCT CARD IMAGE ROTATION
 ========================================================= */
 
 function initProductCardCarousels() {
-    document
-        .querySelectorAll("[data-product-card-carousel]")
-        .forEach((carousel) => {
-            const images = carousel.querySelectorAll("img");
+    document.querySelectorAll("[data-product-card-carousel]").forEach((carousel) => {
+        const images = carousel.querySelectorAll("img");
 
-            if (images.length < 2) {
-                return;
-            }
+        if (images.length < 2) {
+            return;
+        }
 
-            let index = 0;
+        let index = 0;
 
-            setInterval(() => {
-                images[index].classList.remove("is-active");
-                index = (index + 1) % images.length;
-                images[index].classList.add("is-active");
-            }, 4200);
-        });
+        window.setInterval(() => {
+            images[index].classList.remove("is-active");
+            index = (index + 1) % images.length;
+            images[index].classList.add("is-active");
+        }, 4200);
+    });
 }
-
 
 /* =========================================================
    10. PRODUCT CARD HOVER
 ========================================================= */
 
 function initProductCards() {
-
-    const cards =
-        document.querySelectorAll(".product-card");
-
-
-    cards.forEach((card) => {
-
-        card.addEventListener("mouseenter", () => {
-
-            card.classList.add("is-hovered");
-
-        });
-
-
-        card.addEventListener("mouseleave", () => {
-
-            card.classList.remove("is-hovered");
-
-        });
-
+    document.querySelectorAll(".product-card").forEach((card) => {
+        card.addEventListener("mouseenter", () => card.classList.add("is-hovered"));
+        card.addEventListener("mouseleave", () => card.classList.remove("is-hovered"));
     });
-
 }
 
-
 /* =========================================================
-   9. SMOOTH ANCHOR LINKS
+   11. SMOOTH ANCHOR LINKS
 ========================================================= */
 
 function initSmoothLinks() {
-
-    const links =
-        document.querySelectorAll(
-            'a[href^="#"]'
-        );
-
-
-    links.forEach((link) => {
-
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
         link.addEventListener("click", (event) => {
+            const targetID = link.getAttribute("href");
 
-            const targetID =
-                link.getAttribute("href");
-
-
-            if (
-                !targetID ||
-                targetID === "#"
-            ) {
+            if (!targetID || targetID === "#" || targetID === "#order-modal") {
                 return;
             }
 
-
-            const target =
-                document.querySelector(targetID);
-
+            const target = document.querySelector(targetID);
 
             if (!target) {
                 return;
             }
 
-
             event.preventDefault();
 
-
-            const navbar =
-                document.querySelector(".navbar");
-
-
-            const navbarHeight =
-                navbar
-                    ? navbar.offsetHeight
-                    : 0;
-
-
+            const navbar = document.querySelector(".navbar");
+            const navbarHeight = navbar ? navbar.offsetHeight : 0;
             const targetPosition =
                 target.getBoundingClientRect().top +
                 window.scrollY -
                 navbarHeight -
                 15;
 
-
             window.scrollTo({
                 top: targetPosition,
                 behavior: "smooth"
             });
-
         });
-
     });
-
 }
 
-
 /* =========================================================
-   10. WHATSAPP BUTTONS
-========================================================= */
-
-function initWhatsAppButtons() {
-
-    const buttons =
-        document.querySelectorAll(
-            "[data-whatsapp-product]"
-        );
-
-
-    buttons.forEach((button) => {
-
-        button.addEventListener("click", (event) => {
-
-            event.preventDefault();
-
-
-            const productName =
-                button.dataset.whatsappProduct ||
-                "produk RIS Kitchen";
-
-
-            const productPrice =
-                button.dataset.whatsappPrice ||
-                "";
-
-
-            orderWhatsApp(
-                productName,
-                productPrice
-            );
-
-        });
-
-    });
-
-}
-
-
-/* =========================================================
-   11. CURRENT YEAR
+   12. CURRENT YEAR
 ========================================================= */
 
 function initYear() {
+    const currentYear = new Date().getFullYear();
 
-    const yearElements =
-        document.querySelectorAll(
-            "[data-current-year]"
-        );
-
-
-    const currentYear =
-        new Date().getFullYear();
-
-
-    yearElements.forEach((element) => {
-
-        element.textContent =
-            currentYear;
-
+    document.querySelectorAll("[data-current-year]").forEach((element) => {
+        element.textContent = currentYear;
     });
-
 }
 
-
 /* =========================================================
-   12. INITIALIZE
+   13. INITIALIZE
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        renderProducts();
-
-        initMobileMenu();
-
-        initNavbar();
-
-        initScrollReveal();
-
-        initImageHandling();
-
-        initProductCards();
-
-        initCarousels();
-
-        initProductCardCarousels();
-
-        initSmoothLinks();
-
-        initWhatsAppButtons();
-
-        initYear();
-
-    }
-);
+document.addEventListener("DOMContentLoaded", () => {
+    renderProducts();
+    initOrderSystem();
+    initMobileMenu();
+    initNavbar();
+    initScrollReveal();
+    initImageHandling();
+    initProductCards();
+    initCarousels();
+    initProductCardCarousels();
+    initSmoothLinks();
+    initYear();
+});
