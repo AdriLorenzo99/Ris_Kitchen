@@ -3403,3 +3403,27 @@ body.modal-open {
         font-size: 0.62rem;
     }
 }
+
+/* Final mobile About Us fix: stack image and content vertically */
+@media (max-width: 760px) {
+    .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px;
+    }
+
+    .about-image-wrapper {
+        width: min(100%, 320px);
+        margin-inline: auto;
+    }
+
+    .about-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .about-content h2,
+    .about-content > p {
+        width: 100%;
+        max-width: none;
+    }
+}
