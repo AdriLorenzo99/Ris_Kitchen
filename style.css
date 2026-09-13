@@ -3264,64 +3264,105 @@ body.modal-open {
 
 @media (max-width: 760px) {
     .about-section {
-        padding: 82px 0 92px;
+        padding: 62px 0 68px;
     }
 
     .about-grid {
-        gap: 52px;
+        gap: 34px;
     }
 
     .about-image-wrapper {
-        width: min(100%, 410px);
+        width: min(100%, 320px);
+        margin-inline: auto;
     }
 
     .about-image-wrapper::before {
-        inset: 12px -12px -12px 12px;
+        inset: 9px -9px -9px 9px;
+    }
+
+    .about-image {
+        border-radius: 12px;
+        box-shadow: 7px 7px 0 var(--brand-blue);
+        transform: rotate(-1deg);
     }
 
     .about-badge {
-        right: -10px;
-        bottom: 16px;
-        width: 108px;
-        height: 108px;
+        right: -6px;
+        bottom: 10px;
+        width: 88px;
+        height: 88px;
+        font-size: 0.62rem;
+        box-shadow: 4px 4px 0 var(--black);
+    }
+
+    .about-badge span {
+        font-size: 1.25rem;
     }
 
     .about-kicker-row {
-        gap: 10px;
-        margin-bottom: 16px;
+        gap: 8px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
     }
 
     .about-kicker-line {
-        width: 34px;
+        width: 28px;
     }
 
     .about-kicker-note {
-        font-size: 0.58rem;
+        font-size: 0.52rem;
     }
 
     .about-content h2 {
-        font-size: clamp(2.7rem, 11vw, 4.2rem);
+        max-width: 100%;
+        font-size: clamp(2.35rem, 10.5vw, 3.5rem);
+        line-height: 0.94;
+    }
+
+    .about-content > p {
+        margin-top: 15px;
+        font-size: 0.9rem;
+        line-height: 1.6;
     }
 
     .about-points {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 24px;
     }
 
     .about-point,
     .about-point:not(:first-child) {
-        padding: 14px 0;
-        border-right: 0;
-        border-bottom: 2px solid #AAA;
-    }
-
-    .about-point:last-child {
+        min-height: 72px;
+        padding: 12px 8px 10px;
+        border-right: 1px solid #AAA;
         border-bottom: 0;
     }
 
+    .about-point:first-child {
+        padding-left: 0;
+    }
+
+    .about-point:last-child {
+        padding-right: 0;
+        border-right: 0;
+    }
+
+    .about-point span {
+        margin-bottom: 5px;
+        font-size: 0.62rem;
+    }
+
+    .about-point strong {
+        display: block;
+        font-size: 0.68rem;
+        line-height: 1.25;
+    }
+
     .about-signature {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 7px;
+        margin-top: 18px;
+        padding-top: 12px;
+        gap: 5px;
+        font-size: 0.55rem;
     }
 
     .about-signature span:last-child {
@@ -3330,5 +3371,35 @@ body.modal-open {
 
     .featured-price strong {
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .about-section {
+        padding-top: 54px;
+        padding-bottom: 60px;
+    }
+
+    .about-image-wrapper {
+        width: min(100%, 285px);
+    }
+
+    .about-badge {
+        width: 78px;
+        height: 78px;
+        right: -4px;
+        bottom: 8px;
+    }
+
+    .about-content h2 {
+        font-size: 2.2rem;
+    }
+
+    .about-content > p {
+        font-size: 0.86rem;
+    }
+
+    .about-point strong {
+        font-size: 0.62rem;
     }
 }
