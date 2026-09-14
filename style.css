@@ -163,22 +163,8 @@ button {
 }
 
 .nav-logo {
-    width: 145px;
+    width: 64px;
     height: auto;
-
-    border: 3px solid var(--black);
-    border-radius: 10px;
-
-    box-shadow: 4px 4px 0 var(--black);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.logo-link:hover .nav-logo {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--black);
 }
 
 .nav-menu {
@@ -420,19 +406,19 @@ button {
 }
 
 .primary-button {
-    background: var(--black);
-    color: var(--white);
+    background: var(--white);
+    color: var(--black);
 
-    box-shadow: 5px 5px 0 var(--brand-blue);
+    box-shadow: 5px 5px 0 var(--black);
 }
 
 .primary-button:hover {
     transform: translate(3px, 3px);
-    box-shadow: 2px 2px 0 var(--brand-blue);
+    box-shadow: 2px 2px 0 var(--black);
 }
 
 .secondary-button {
-    background: var(--white);
+    background: var(--yellow);
     box-shadow: 5px 5px 0 var(--black);
 }
 
@@ -689,7 +675,7 @@ button {
     border: var(--border);
     border-radius: 20px;
 
-    background: var(--green);
+    background: var(--white);
 
     box-shadow: 10px 10px 0 var(--black);
 }
@@ -1406,11 +1392,8 @@ button {
 }
 
 .footer-logo {
-    width: 150px;
+    width: 128px;
     height: auto;
-
-    border: 3px solid var(--white);
-    border-radius: 10px;
 }
 
 .footer-brand p {
@@ -1685,7 +1668,8 @@ button {
     }
 
     .nav-logo {
-        width: 125px;
+        width: 64px;
+        height: auto;
     }
 
     .nav-menu,
@@ -2682,7 +2666,7 @@ button {
 ========================================================= */
 
 .nav-logo {
-    width: 128px;
+    width: 64px;
 }
 
 .featured-actions {
@@ -2871,7 +2855,7 @@ body.modal-open {
 
 @media (max-width: 760px) {
     .nav-logo {
-        width: 110px;
+        width: 64px;
     }
 
     .hero-section {
@@ -2990,7 +2974,7 @@ body.modal-open {
     }
 
     .nav-logo {
-        width: 104px;
+        width: 64px;
     }
 
     .hero-content h1 {
@@ -3046,7 +3030,7 @@ body.modal-open {
 
 /* Header logo: slightly smaller while keeping the original treatment. */
 .nav-logo {
-    width: 116px;
+    width: 64px;
 }
 
 /* About Us: square image presentation, shorter and more balanced. */
@@ -3074,7 +3058,7 @@ body.modal-open {
 
 @media (max-width: 760px) {
     .nav-logo {
-        width: 102px;
+        width: 64px;
     }
 
     .about-grid {
@@ -3094,7 +3078,7 @@ body.modal-open {
 
 @media (max-width: 430px) {
     .nav-logo {
-        width: 96px;
+        width: 64px;
     }
 
     .about-image-wrapper {
