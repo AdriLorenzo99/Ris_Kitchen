@@ -24,19 +24,12 @@
 
     --white: #FFFFFF;
 
-    /* Neutral grays — kept to one consistent scale instead of ad-hoc hex values */
     --gray-700: #555555;
-    /* secondary text on light backgrounds */
     --gray-500: #8C8C8C;
-    /* faint text / small labels on light backgrounds */
     --gray-300: #CCCCCC;
-    /* light dividers on light backgrounds */
     --gray-200: #B3B3B3;
-    /* medium dividers on light backgrounds */
     --gray-on-dark: #C4C4C4;
-    /* muted text on dark backgrounds (footer) */
     --border-on-dark: #444444;
-    /* dividers on dark backgrounds (footer) */
 
     --border: 3px solid var(--black);
     --shadow: 7px 7px 0 var(--black);
