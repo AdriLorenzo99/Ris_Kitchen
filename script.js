@@ -76,26 +76,379 @@ function getPageProduct() {
 }
 
 /* =========================================================
-   2. ORDER MODAL
+   2. CART SYSTEM
 ========================================================= */
+
+const CART_STORAGE_KEY = "riskitchen_cart_v1";
+
+let cartState = [];
+
+function parsePrice(priceString) {
+    return parseInt(String(priceString).replace(/[^\d]/g, ""), 10) || 0;
+}
+
+function formatPrice(amount) {
+    return `Rp ${amount.toLocaleString("id-ID")}`;
+}
+
+function loadCart() {
+    try {
+        const raw = window.localStorage.getItem(CART_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+
+        if (!Array.isArray(parsed)) {
+            return [];
+        }
+
+        return parsed.filter(
+            (entry) => entry && getProduct(entry.id) && Number(entry.qty) > 0
+        );
+    } catch (error) {
+        return [];
+    }
+}
+
+function saveCart() {
+    try {
+        window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartState));
+    } catch (error) {
+    }
+}
+
+function getCartEntry(id) {
+    return cartState.find((entry) => entry.id === id) || null;
+}
+
+function addToCart(id, qty = 1) {
+    if (!getProduct(id)) {
+        return;
+    }
+
+    const entry = getCartEntry(id);
+
+    if (entry) {
+        entry.qty += qty;
+    } else {
+        cartState.push({ id, qty });
+    }
+
+    saveCart();
+    renderCartDrawer();
+    updateCartBadges();
+}
+
+function increaseCartQty(id) {
+    const entry = getCartEntry(id);
+
+    if (!entry) {
+        return;
+    }
+
+    entry.qty += 1;
+    saveCart();
+    renderCartDrawer();
+    updateCartBadges();
+}
+
+function decreaseCartQty(id) {
+    const entry = getCartEntry(id);
+
+    if (!entry) {
+        return;
+    }
+
+    entry.qty = Math.max(1, entry.qty - 1);
+    saveCart();
+    renderCartDrawer();
+    updateCartBadges();
+}
+
+function removeFromCart(id) {
+    cartState = cartState.filter((entry) => entry.id !== id);
+    saveCart();
+    renderCartDrawer();
+    updateCartBadges();
+}
+
+function clearCart() {
+    cartState = [];
+    saveCart();
+    renderCartDrawer();
+    updateCartBadges();
+}
+
+function getCartDetails() {
+    return cartState
+        .map((entry) => {
+            const product = getProduct(entry.id);
+
+            if (!product) {
+                return null;
+            }
+
+            const unitPrice = parsePrice(product.price);
+
+            return {
+                product,
+                qty: entry.qty,
+                unitPrice,
+                lineTotal: unitPrice * entry.qty
+            };
+        })
+        .filter(Boolean);
+}
+
+function getCartCount() {
+    return cartState.reduce((total, entry) => total + entry.qty, 0);
+}
+
+function getCartTotal() {
+    return getCartDetails().reduce((total, item) => total + item.lineTotal, 0);
+}
+
+function updateCartBadges() {
+    const count = getCartCount();
+
+    document.querySelectorAll("[data-cart-badge]").forEach((badge) => {
+        badge.textContent = String(count);
+        badge.classList.toggle("is-visible", count > 0);
+    });
+}
+
+function addCartBadges() {
+    document.querySelectorAll(".nav-order, .mobile-menu [data-order]").forEach((trigger) => {
+        if (trigger.querySelector("[data-cart-badge]")) {
+            return;
+        }
+
+        const badge = document.createElement("span");
+        badge.className = "cart-badge";
+        badge.setAttribute("data-cart-badge", "");
+        badge.textContent = "0";
+        trigger.appendChild(badge);
+    });
+}
+
+/* -------- Cart drawer UI -------- */
+
+let cartDrawer;
+let cartDrawerLastTrigger;
+
+function renderCartItemRow(item) {
+    const image = item.product.images?.[0] || "";
+
+    return `
+        <div class="cart-item" data-cart-item="${item.product.id}">
+            <img class="cart-item-image" src="${image}" alt="${item.product.name}" loading="lazy">
+            <div class="cart-item-info">
+                <h4>${item.product.name}</h4>
+                <span class="cart-item-unit-price">${formatPrice(item.unitPrice)} / item</span>
+                <div class="cart-item-qty">
+                    <button type="button" class="cart-qty-button" data-cart-decrease="${item.product.id}" aria-label="Kurangi jumlah ${item.product.name}">−</button>
+                    <span class="cart-item-qty-value">${item.qty}</span>
+                    <button type="button" class="cart-qty-button" data-cart-increase="${item.product.id}" aria-label="Tambah jumlah ${item.product.name}">+</button>
+                </div>
+            </div>
+            <div class="cart-item-side">
+                <span class="cart-item-line-total">${formatPrice(item.lineTotal)}</span>
+                <button type="button" class="cart-item-trash" data-cart-remove="${item.product.id}" aria-label="Hapus ${item.product.name} dari keranjang">🗑</button>
+            </div>
+        </div>
+    `;
+}
+
+function renderCartDrawer() {
+    if (!cartDrawer) {
+        return;
+    }
+
+    const items = getCartDetails();
+    const body = cartDrawer.querySelector("[data-cart-body]");
+    const footer = cartDrawer.querySelector("[data-cart-footer]");
+    const totalEl = cartDrawer.querySelector("[data-cart-total]");
+
+    if (items.length === 0) {
+        body.innerHTML = `
+            <div class="cart-empty"
+            style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            ">
+                <p>Keranjang kamu masih kosong.</p>
+                <a href="index.html#menu" class="secondary-button">Lihat Menu</a>
+            </div>
+        `;
+        footer.hidden = true;
+        return;
+    }
+
+    body.innerHTML = items.map(renderCartItemRow).join("");
+    footer.hidden = false;
+    totalEl.textContent = formatPrice(getCartTotal());
+}
+
+function createCartDrawer() {
+    if (document.getElementById("cartDrawer")) {
+        cartDrawer = document.getElementById("cartDrawer");
+        return;
+    }
+
+    const drawer = document.createElement("div");
+    drawer.className = "cart-drawer";
+    drawer.id = "cartDrawer";
+    drawer.hidden = true;
+    drawer.innerHTML = `
+        <div class="cart-drawer-overlay" data-cart-close></div>
+        <aside
+            class="cart-drawer-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cartDrawerTitle"
+        >
+            <div class="cart-drawer-header">
+                <h2 id="cartDrawerTitle">Keranjang</h2>
+                <button
+                    class="cart-drawer-close"
+                    type="button"
+                    aria-label="Tutup keranjang"
+                    data-cart-close
+                >×</button>
+            </div>
+
+            <div class="cart-drawer-body" data-cart-body></div>
+
+            <div class="cart-drawer-footer" data-cart-footer hidden>
+                <div class="cart-drawer-total">
+                    <span>Total</span>
+                    <strong data-cart-total>Rp 0</strong>
+                </div>
+                <button type="button" class="primary-button cart-drawer-order" data-cart-order>
+                    Order via WhatsApp <span>↗</span>
+                </button>
+            </div>
+        </aside>
+    `;
+
+    document.body.appendChild(drawer);
+    cartDrawer = drawer;
+
+    drawer.addEventListener("click", (event) => {
+        if (event.target.closest("[data-cart-close]")) {
+            closeCartDrawer();
+            return;
+        }
+
+        const increaseButton = event.target.closest("[data-cart-increase]");
+        if (increaseButton) {
+            increaseCartQty(increaseButton.dataset.cartIncrease);
+            return;
+        }
+
+        const decreaseButton = event.target.closest("[data-cart-decrease]");
+        if (decreaseButton) {
+            decreaseCartQty(decreaseButton.dataset.cartDecrease);
+            return;
+        }
+
+        const removeButton = event.target.closest("[data-cart-remove]");
+        if (removeButton) {
+            removeFromCart(removeButton.dataset.cartRemove);
+            return;
+        }
+
+        const orderButton = event.target.closest("[data-cart-order]");
+        if (orderButton) {
+            closeCartDrawer();
+            openOrderModal();
+        }
+    });
+
+    renderCartDrawer();
+}
+
+function openCartDrawer() {
+    createCartDrawer();
+    renderCartDrawer();
+
+    cartDrawerLastTrigger = document.activeElement;
+
+    cartDrawer.hidden = false;
+    document.body.classList.add("modal-open");
+
+    requestAnimationFrame(() => {
+        cartDrawer.classList.add("is-open");
+        cartDrawer.querySelector(".cart-drawer-close")?.focus();
+    });
+}
+
+function closeCartDrawer() {
+    if (!cartDrawer) {
+        return;
+    }
+
+    cartDrawer.classList.remove("is-open");
+    document.body.classList.remove("modal-open");
+
+    window.setTimeout(() => {
+        if (cartDrawer) {
+            cartDrawer.hidden = true;
+        }
+        cartDrawerLastTrigger?.focus?.();
+    }, 180);
+}
+
+function flashAddedFeedback(button) {
+    if (!button) {
+        return;
+    }
+
+    const originalText = button.dataset.originalText || button.textContent.trim();
+    button.dataset.originalText = originalText;
+
+    button.classList.add("is-added");
+    button.textContent = "Ditambahkan ✓";
+
+    window.clearTimeout(button._addedTimeout);
+    button._addedTimeout = window.setTimeout(() => {
+        button.classList.remove("is-added");
+        button.textContent = originalText;
+    }, 1100);
+}
+
+function initCartSystem() {
+    cartState = loadCart();
+    createCartDrawer();
+    addCartBadges();
+    updateCartBadges();
+
+    document.addEventListener("click", (event) => {
+        const addButton = event.target.closest("[data-add-to-cart]");
+
+        if (!addButton) {
+            return;
+        }
+
+        event.preventDefault();
+        addToCart(addButton.dataset.addToCart, 1);
+        flashAddedFeedback(addButton);
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && cartDrawer && !cartDrawer.hidden) {
+            closeCartDrawer();
+        }
+    });
+}
 
 let orderModal;
 let orderModalLastTrigger;
 
-function getOrderProduct(trigger) {
-    if (trigger?.dataset.product) {
-        return {
-            name: trigger.dataset.product,
-            price: trigger.dataset.price || ""
-        };
-    }
-
-    const pageProduct = getPageProduct();
-
-    return pageProduct
-        ? { name: pageProduct.name, price: pageProduct.price }
-        : null;
-}
+/* =========================================================
+   3. ORDER MODAL (area selection + WhatsApp handoff)
+========================================================= */
 
 function createOrderModal() {
     if (document.getElementById("orderModal")) {
@@ -128,11 +481,11 @@ function createOrderModal() {
 
             <div class="order-modal-options">
                 <button type="button" class="order-area-button" data-order-area="general">
-                    <span>Area Umum</span>
+                    <span>Umum</span>
                     <span>↗</span>
                 </button>
                 <button type="button" class="order-area-button" data-order-area="unj">
-                    <span>Area UNJ</span>
+                    <span>Kampus UNJ (Rawamangun)</span>
                     <span>↗</span>
                 </button>
             </div>
@@ -160,14 +513,10 @@ function createOrderModal() {
     });
 }
 
-function openOrderModal(trigger) {
+function openOrderModal() {
     createOrderModal();
 
-    orderModalLastTrigger = trigger || document.activeElement;
-
-    const product = getOrderProduct(trigger);
-    orderModal.dataset.productName = product?.name || "";
-    orderModal.dataset.productPrice = product?.price || "";
+    orderModalLastTrigger = document.activeElement;
 
     orderModal.hidden = false;
     document.body.classList.add("modal-open");
@@ -194,43 +543,72 @@ function closeOrderModal() {
     }, 180);
 }
 
-function submitOrder(area) {
-    const number = area === "unj" ? WHATSAPP_UNJ : WHATSAPP_GENERAL;
-    const areaName = area === "unj" ? "Area UNJ" : "Area Umum";
-    const productName = orderModal?.dataset.productName;
-    const productPrice = orderModal?.dataset.productPrice;
+function buildOrderMessage(areaName) {
+    const items = getCartDetails();
 
-    const lines = [
+    if (items.length === 0) {
+        return [
+            "Halo RIS Kitchen!",
+            "",
+            `Saya ingin order: [Nama Pesanan]`,
+            `Jumlah: [Jumlah Pesanan]`,
+            `Alamat Pengiriman: ${areaName}`,
+            `Catatan:`,
+            "",
+            "Terima kasih!"
+        ].join("\n");
+    }
+
+    const itemLines = items.map(
+        (item) => `- ${item.qty}x ${item.product.name} (${formatPrice(item.unitPrice)}) = ${formatPrice(item.lineTotal)}`
+    );
+
+    return [
         "Halo RIS Kitchen!",
         "",
-        productName
-            ? `Saya ingin order:
-Produk: ${productName}
-Harga: ${productPrice}
-Area: ${areaName}`
-            : `Saya ingin order.
-Area: ${areaName}`,
+        "Saya ingin order:",
+        ...itemLines,
+        "",
+        `Total: ${formatPrice(getCartTotal())}`,
+        `Alamat Pengiriman: ${areaName}`,
+        `Catatan:`,
         "",
         "Terima kasih!"
-    ];
+    ].join("\n");
+}
 
-    const url = `https://wa.me/${number}?text=${encodeURIComponent(lines.join("\n"))}`;
+function submitOrder(area) {
+    const number = area === "unj" ? WHATSAPP_UNJ : WHATSAPP_GENERAL;
+    const areaName = area === "unj" ? "Kampus UNJ (Rawamangun)" : "[Alamat]";
+
+    const message = buildOrderMessage(areaName);
+    const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 
     closeOrderModal();
     window.open(url, "_blank", "noopener,noreferrer");
+
+    // Order has been handed off to WhatsApp — start the next visit with a fresh cart.
+    clearCart();
 }
 
 function initOrderSystem() {
     createOrderModal();
 
     document.addEventListener("click", (event) => {
+        const areaTrigger = event.target.closest("[data-open-area-modal]");
+        if (areaTrigger) {
+            event.preventDefault();
+            openOrderModal();
+            return;
+        }
+
         const trigger = event.target.closest("[data-order]");
         if (!trigger) {
             return;
         }
 
         event.preventDefault();
-        openOrderModal(trigger);
+        openCartDrawer();
     });
 
     document.addEventListener("keydown", (event) => {
@@ -251,17 +629,17 @@ function initOrderSystem() {
         document
             .querySelectorAll(".product-detail-actions .primary-button")
             .forEach((button) => {
-                button.dataset.order = "";
-                button.dataset.product = pageProduct.name;
-                button.dataset.price = pageProduct.price;
+                button.dataset.addToCart = pageProduct.id;
+                button.removeAttribute("data-order");
                 button.removeAttribute("href");
                 button.removeAttribute("target");
+                button.innerHTML = "+ Tambah ke Keranjang <span>↗</span>";
             });
     }
 }
 
 /* =========================================================
-   3. PRODUCT MENU
+   4. PRODUCT MENU
 ========================================================= */
 
 function renderProducts() {
@@ -304,9 +682,13 @@ function renderProducts() {
                 <div class="product-card-footer">
                     <span class="product-price">${product.price}</span>
 
-                    <a href="${product.link}" class="product-view-button">
-                        Lihat Produk ↗
-                    </a>
+                    <button
+                        type="button"
+                        class="product-add-button"
+                        data-add-to-cart="${product.id}"
+                    >
+                        + Tambah
+                    </button>
                 </div>
             </div>
         </article>
@@ -314,7 +696,7 @@ function renderProducts() {
 }
 
 /* =========================================================
-   4. REUSABLE CAROUSEL
+   5. REUSABLE CAROUSEL
 ========================================================= */
 
 function initCarousel(root, options = {}) {
@@ -424,7 +806,7 @@ function initCarousels() {
 }
 
 /* =========================================================
-   5. MOBILE MENU
+   6. MOBILE MENU
 ========================================================= */
 
 function initMobileMenu() {
@@ -451,7 +833,7 @@ function initMobileMenu() {
 }
 
 /* =========================================================
-   6. NAVBAR ACTIVE LINK
+   7. NAVBAR ACTIVE LINK
 ========================================================= */
 
 function initNavbar() {
@@ -487,7 +869,7 @@ function initNavbar() {
 }
 
 /* =========================================================
-   7. SCROLL REVEAL
+   8. SCROLL REVEAL
 ========================================================= */
 
 function initScrollReveal() {
@@ -519,7 +901,7 @@ function initScrollReveal() {
 }
 
 /* =========================================================
-   8. IMAGE HANDLING
+   9. IMAGE HANDLING
 ========================================================= */
 
 function initImageHandling() {
@@ -531,7 +913,7 @@ function initImageHandling() {
 }
 
 /* =========================================================
-   9. PRODUCT CARD IMAGE ROTATION
+   10. PRODUCT CARD IMAGE ROTATION
 ========================================================= */
 
 function initProductCardCarousels() {
@@ -553,7 +935,7 @@ function initProductCardCarousels() {
 }
 
 /* =========================================================
-   10. PRODUCT CARD HOVER
+   11. PRODUCT CARD HOVER
 ========================================================= */
 
 function initProductCards() {
@@ -564,7 +946,7 @@ function initProductCards() {
 }
 
 /* =========================================================
-   11. SMOOTH ANCHOR LINKS
+   12. SMOOTH ANCHOR LINKS
 ========================================================= */
 
 function initSmoothLinks() {
@@ -601,7 +983,7 @@ function initSmoothLinks() {
 }
 
 /* =========================================================
-   12. CURRENT YEAR
+   13. CURRENT YEAR
 ========================================================= */
 
 function initYear() {
@@ -613,11 +995,12 @@ function initYear() {
 }
 
 /* =========================================================
-   13. INITIALIZE
+   14. INITIALIZE
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
     renderProducts();
+    initCartSystem();
     initOrderSystem();
     initMobileMenu();
     initNavbar();
