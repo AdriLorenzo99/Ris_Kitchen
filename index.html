@@ -18,35 +18,36 @@
          NAVBAR
     ========================== -->
 <header class="navbar" id="navbar">
-<div class="container nav-container">
-<a class="logo-link" href="index.html">
-<img alt="RIS Kitchen" class="nav-logo" src="assets/Ris Kitchen_ Logo.webp"/>
-</a>
-<nav class="nav-menu">
-<a class="nav-link active" href="#home">Home</a>
-<a class="nav-link" href="#menu">Menu</a>
-<a class="nav-link" href="#about">About</a>
-<a class="nav-link" href="#contact">Contact</a>
-</nav>
-<a class="nav-order" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
-                Order Sekarang
-                <span class="arrow">↗</span>
-</a>
-<button aria-label="Buka menu" class="mobile-menu-button" id="mobileMenuButton" type="button">
-<span></span>
-<span></span>
-<span></span>
-</button>
-</div>
-<div class="mobile-menu" id="mobileMenu">
-<a href="#home">Home</a>
-<a href="#menu">Menu</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-<a data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
-                Order Sekarang ↗
+    <div class="container nav-container">
+        <a class="logo-link" href="index.html">
+            <img alt="RIS Kitchen" class="nav-logo" src="assets/logo_blue.webp"/>
+        </a>
+        
+        <nav class="nav-menu">
+            <a class="nav-link active" href="#home">Home</a>
+            <a class="nav-link" href="#menu">Menu</a>
+            <a class="nav-link" href="#about">About</a>
+            <a class="nav-link" href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions-mobile">
+            <a class="nav-order" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
+                <img class="cart-icon" alt="cart" src="assets/cart.png">
             </a>
-</div>
+            <button aria-label="Buka menu" class="mobile-menu-button" id="mobileMenuButton" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
 </header>
 <!-- =========================
          HERO
@@ -72,11 +73,7 @@
                             Lihat Menu
                             <span>↓</span>
 </a>
-<a class="secondary-button" href="#about">
-                            Tentang Kami
-                            <span>↗</span>
-</a>
-<a class="secondary-button" data-order="" href="#order-modal">
+<a class="secondary-button" data-open-area-modal="">
                             Order Sekarang
                             <span>↗</span>
 </a>
@@ -163,12 +160,12 @@
                     </p>
 </div>
 <div class="featured-card">
-<div class="featured-image">
+<a class="featured-image" href="green-tea.html" aria-label="Lihat detail Green Tea">
 <img alt="Green Tea RIS Kitchen" src="assets/Green Tea 2.jpg"/>
 <div class="featured-tag">
                             BEST SELLER
                         </div>
-</div>
+</a>
 <div class="featured-content">
 <h3>Green Tea</h3>
 <p>
@@ -179,14 +176,9 @@
 <div class="featured-bottom">
 <div class="featured-price" aria-label="Harga Green Tea Rp 15.000"><span class="featured-price-currency">Rp</span><strong>15.000</strong></div>
 <div class="featured-actions">
-<a class="black-button" href="green-tea.html">
-                                    Lihat Produk
-                                    <span>↗</span>
-</a>
-<a class="black-button featured-order-button" data-order="" data-price="Rp 15.000" data-product="Green Tea" href="#order-modal">
-                                    Order Sekarang
-                                    <span>↗</span>
-</a>
+<button class="black-button featured-add-button" type="button" data-add-to-cart="green-tea">
+                                    + Tambah
+                                </button>
 </div>
 </div>
 </div>
@@ -227,8 +219,6 @@
 <div class="about-content">
 <div class="about-kicker-row">
 <span class="section-eyebrow">ABOUT US</span>
-<span class="about-kicker-line" aria-hidden="true"></span>
-<span class="about-kicker-note">FRESH BY NATURE</span>
 </div>
 <h2>
                         Dibuat Segar.
@@ -310,24 +300,16 @@
                         </span>
 <h2>
                             Mau Order?
-                            <span>Gas.</span>
+                            <br>Gas.
 </h2>
 <p>
                             Hubungi RIS Kitchen melalui WhatsApp
                             dan pesan minuman favorit kamu.
                         </p>
-<a class="contact-button" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
-                            Order via WhatsApp
-                            <span>↗</span>
-</a>
-</div>
-<div class="contact-decoration">
-<div class="contact-circle">
-                            RIS<br/>
-                            KITCHEN
-                        </div>
-</div>
-</div>
+<button type="button" class="contact-button" data-open-area-modal="">
+    Order via WhatsApp
+    <span>↗</span>
+</button>
 </div>
 </section>
 </main>
@@ -339,7 +321,7 @@
 <div class="footer-main">
 <div class="footer-brand">
 <a href="#home">
-<img alt="RIS Kitchen" class="footer-logo" src="assets/Ris Kitchen_ Logo.webp"/>
+<img alt="RIS Kitchen" class="footer-logo" src="assets/logo_white.webp"/>
 </a>
 <p>
                         Fresh drinks for better days.
@@ -374,7 +356,7 @@
 <span class="footer-title">
                         Ready?
                     </span>
-<a class="footer-order-button" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
+<a data-open-area-modal="" style="cursor: pointer; ">
                         Order Sekarang
                         <span>↗</span>
 </a>
