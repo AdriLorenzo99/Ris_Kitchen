@@ -15,7 +15,7 @@ const products = [
         id: "thai-tea",
         name: "Thai Tea",
         price: "Rp 15.000",
-        colorClass: "bg-orange",
+        colorClass: "bg-white",
         images: ["assets/Thai Tea 1.jpg", "assets/Thai tea 2.jpg"],
         description: "Thai tea creamy dengan rasa teh yang khas dan menyegarkan.",
         link: "thai-tea.html"
@@ -24,7 +24,7 @@ const products = [
         id: "green-tea",
         name: "Green Tea",
         price: "Rp 15.000",
-        colorClass: "bg-green",
+        colorClass: "bg-white",
         images: ["assets/Green Tea 1.jpg", "assets/Green Tea 2.jpg"],
         description: "Green tea ringan dan fresh untuk menemani hari kamu.",
         link: "green-tea.html"
@@ -33,7 +33,7 @@ const products = [
         id: "cincau-gula-aren",
         name: "Cincau Gula Aren",
         price: "Rp 13.000",
-        colorClass: "bg-yellow",
+        colorClass: "bg-white",
         images: ["assets/Cincau 1.jpg", "assets/Cincau 2.jpg"],
         description: "Perpaduan cincau yang lembut dengan manisnya gula aren.",
         link: "cincau-gula-aren.html"
@@ -42,7 +42,7 @@ const products = [
         id: "kelapa-pandan",
         name: "Kelapa Pandan",
         price: "Rp 13.000",
-        colorClass: "bg-green",
+        colorClass: "bg-white",
         images: ["assets/Kelapa 1.jpg", "assets/Kelapa Pandan 2.jpg"],
         description: "Kesegaran kelapa dengan aroma pandan yang lembut.",
         link: "kelapa-pandan.html"
@@ -60,7 +60,7 @@ const products = [
         id: "jus-pear-nanas",
         name: "Cold Pressed Juice (Pear & Nanas)",
         price: "Rp 20.000",
-        colorClass: "bg-yellow",
+        colorClass: "bg-white",
         images: ["assets/Jus Pear Nanas 1.jpg", "assets/Jus Pear Nanas2.jpg"],
         description: "Perpaduan pear dan nanas yang ringan, fresh, dan menyegarkan.",
         link: "jus-pear-nanas.html"
