@@ -12,31 +12,37 @@
 <link href="style.css" rel="stylesheet"/>
 </head>
 <body class="detail-page" data-product-id="kelapa-pandan">
-<header class="navbar">
-<div class="container nav-container">
-<a class="logo-link" href="index.html">
-<img alt="RIS Kitchen" class="nav-logo" src="assets/Ris Kitchen_ Logo.webp"/>
-</a>
-<nav class="nav-menu">
-<a class="nav-link" href="index.html#home">Home</a>
-<a class="nav-link active" href="index.html#menu">Menu</a>
-<a class="nav-link" href="index.html#about">About</a>
-<a class="nav-link" href="index.html#contact">Contact</a>
-</nav>
-<a class="nav-order" data-order="" href="#order-modal">
-            Order Sekarang <span class="arrow">↗</span>
-</a>
-<button aria-label="Buka menu" class="mobile-menu-button" id="mobileMenuButton" type="button">
-<span></span><span></span><span></span>
-</button>
-</div>
-<div class="mobile-menu" id="mobileMenu">
-<a href="index.html#home">Home</a>
-<a href="index.html#menu">Menu</a>
-<a href="index.html#about">About</a>
-<a href="index.html#contact">Contact</a>
-<a data-order="" href="#order-modal">Order Sekarang ↗</a>
-</div>
+<header class="navbar" id="navbar">
+    <div class="container nav-container">
+        <a class="logo-link" href="index.html">
+            <img alt="RIS Kitchen" class="nav-logo" src="assets/logo_blue.webp"/>
+        </a>
+        
+        <nav class="nav-menu">
+            <a class="nav-link active" href="#home">Home</a>
+            <a class="nav-link" href="#menu">Menu</a>
+            <a class="nav-link" href="#about">About</a>
+            <a class="nav-link" href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions-mobile">
+            <a class="nav-order" data-order="" href="#order-modal" rel="noopener noreferrer" target="_blank">
+                <img class="cart-icon" alt="cart" src="assets/cart.png">
+            </a>
+            <button aria-label="Buka menu" class="mobile-menu-button" id="mobileMenuButton" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
 </header>
 <main>
 <section class="product-detail-section">
@@ -61,10 +67,10 @@
 <p>Kesegaran kelapa dengan aroma pandan yang lembut.</p>
 <div class="product-detail-price">Rp 13.000</div>
 <div class="product-detail-actions">
-<a class="primary-button" data-order="" href="#order-modal">
+<a class="primary-button" data-order="" href="#order-modal" style="background-color: #FFD43B;">
                             Order Sekarang <span>↗</span>
 </a>
-<a class="secondary-button" href="index.html#menu">← Kembali ke Menu</a>
+<a class="secondary-button" href="index.html#menu" style="background-color: white;">← Kembali ke Menu</a>
 </div>
 </div>
 </div>
@@ -83,13 +89,9 @@
 <div class="contact-card">
 <div class="contact-main">
 <span class="section-eyebrow">WANT SOMETHING ELSE?</span>
-<h2>Coba Menu <span>Lain.</span></h2>
+<h2>Coba Menu Lain.</h2>
 <p>Masih banyak pilihan minuman fresh lainnya di RIS Kitchen.</p>
 <a class="contact-button" href="index.html#menu">Lihat Semua Menu <span>↗</span></a>
-</div>
-<div class="contact-decoration">
-<div class="contact-circle">RIS<br/>KITCHEN</div>
-</div>
 </div>
 </div>
 </section>
@@ -98,34 +100,55 @@
 <div class="container">
 <div class="footer-main">
 <div class="footer-brand">
-<a href="index.html">
-<img alt="RIS Kitchen" class="footer-logo" src="assets/Ris Kitchen_ Logo.webp"/>
+<a href="#home">
+<img alt="RIS Kitchen" class="footer-logo" src="assets/logo_white.webp"/>
 </a>
-<p>Fresh drinks for better days.</p>
+<p>
+                        Fresh drinks for better days.
+                    </p>
 </div>
 <div class="footer-links">
-<span class="footer-title">Navigation</span>
-<a href="index.html#home">Home</a>
-<a href="index.html#menu">Menu</a>
-<a href="index.html#about">About</a>
-<a href="index.html#contact">Contact</a>
+<span class="footer-title">
+                        Navigation
+                    </span>
+<a href="#home">Home</a>
+<a href="#menu">Menu</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
 </div>
 <div class="footer-contact">
-<span class="footer-title">Contact</span>
-<a href="https://instagram.com/riskitchenid" rel="noopener noreferrer" target="_blank">Instagram <span>↗</span></a>
-<a data-whatsapp-general="" href="#whatsapp-general">WhatsApp <span>↗</span></a>
-<span>Jakarta, Indonesia</span>
+<span class="footer-title">
+                        Contact
+                    </span>
+<a href="https://instagram.com/riskitchenid" rel="noopener noreferrer" target="_blank">
+                        Instagram
+                        <span>↗</span>
+</a>
+<a data-whatsapp-general="" href="#whatsapp-general" rel="noopener noreferrer" target="_blank">
+                        WhatsApp
+                        <span>↗</span>
+</a>
+<span>
+                        Jakarta, Indonesia
+                    </span>
 </div>
 <div class="footer-order">
-<span class="footer-title">Ready?</span>
-<a class="footer-order-button" data-order="" href="#order-modal">
-                    Order Sekarang <span>↗</span>
+<span class="footer-title">
+                        Ready?
+                    </span>
+<a data-open-area-modal="" style="cursor: pointer; ">
+                        Order Sekarang
+                        <span>↗</span>
 </a>
 </div>
 </div>
 <div class="footer-bottom">
-<span>RIS Kitchen</span>
-<span>© <span data-current-year="">2026</span></span>
+<span>
+                    RIS Kitchen
+                </span>
+<span>
+                    © 2026
+                </span>
 </div>
 </div>
 </footer>
