@@ -251,7 +251,7 @@ function renderCartItemRow(item) {
             </div>
             <div class="cart-item-side">
                 <span class="cart-item-line-total">${formatPrice(item.lineTotal)}</span>
-                <button type="button" class="cart-item-trash" data-cart-remove="${item.product.id}" aria-label="Hapus ${item.product.name} dari keranjang">🗑</button>
+                <button type="button" class="cart-item-trash" data-cart-remove="${item.product.id}" aria-label="Hapus ${item.product.name} dari keranjang"><img alt="trash" src="assets/trash.png" style="width: 16px; height: auto;"></button>
             </div>
         </div>
     `;
